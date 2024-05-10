@@ -28,7 +28,7 @@ model Users {
   SimpleUser
  }
 
-model Parts {
+model Part {
   part_id     Int         @id @default(autoincrement())
   part_number String
   part_title  String
@@ -37,14 +37,14 @@ model Parts {
 
 model LawCategory {
   category_id     Int      @id @default(autoincrement())
-  catgory_number String?
-  category_title  String?
+  category_number String
+  category_title  String
   part_id         Int
-  Parts            Parts    @relation(fields: [part_id], references: [part_id])
-  laws Laws[]
+  Part            Part    @relation(fields: [part_id], references: [part_id])
+  laws Law[]
 }
 
-model Laws {
+model Law {
   law_id           Int         @id @default(autoincrement())
   law_name         String
   law_description  String

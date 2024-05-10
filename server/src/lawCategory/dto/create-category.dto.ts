@@ -7,6 +7,9 @@ export class CreateLawCategoryDto {
   @IsString()
   category_title: string;
   
+  @IsString()
+  category_number: string;
+
   @IsNumber()
   part_id: number;
 }

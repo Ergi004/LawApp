@@ -3,7 +3,6 @@ import Contact from "./components/Contact/Contact";
 import Navbar from "./components/Navbar/Navbar";
 import { Homepage } from "./homepage/page";
 import { Box } from "@mui/material";
-import { SessionProvider } from "next-auth/react";
 
 const Home = () => {
   return (

@@ -14,13 +14,14 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { ILoginUser } from "../models/userModel";
+import { ICreateUser, ILoginUser } from "../models/userModel";
 import Api from "../api/authApi";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 
 const Login: React.FC = () => {
   const router = useRouter()
-  const [loginUser, setLoginUser] = useState<ILoginUser>({
+  const [loginUser, setLoginUser] = useState<ICreateUser>({
     email: "",
     password: "",
   });
@@ -28,9 +29,18 @@ const Login: React.FC = () => {
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      console.log(loginUser)
       const response = await Api.login(loginUser as ILoginUser);
-      router.push('/account')
+      const token = response.token
+      const user = JSON.stringify(response.user)
+      window.localStorage.setItem('user', user)
+      window.localStorage.setItem("token", token)
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
+      const role = response.user.role
+      if (role === "Admin"){
+        router.push('/adminAccount')
+      } else {
+        router.push('/account')
+      }
       return response
     } catch (error) {
       console.error("login failed:");

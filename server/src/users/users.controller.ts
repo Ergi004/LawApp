@@ -9,17 +9,16 @@ import {
   Request,
   HttpException,
   HttpStatus,
-  Res,
-  HttpCode,
   UseGuards,
+  Res
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
 import { AllUsers } from './dto/all-users-dto';
-import { Response } from 'express';
 import { AuthGuard } from './auth.guard';
+import { Response } from 'express';
 
 @Controller('users')
 export class UsersController {
@@ -37,18 +36,27 @@ export class UsersController {
     }
   }
 
-  @HttpCode(HttpStatus.OK)
   @Post('login')
-  async login(
-    @Body() loginUser: LoginUserDto,
-    @Res({ passthrough: true }) res: Response,
-  ) {
-    return this.usersService.login(loginUser);
+  async login(@Body() loginUser: LoginUserDto,@Res() res: Response) {
+    try {
+      // console.log(loginUser);
+      const response = await this.usersService.login(loginUser);
+      const token = await this.usersService.generateToken(response);
+      res.cookie('token', token, { maxAge: 10000000 ,httpOnly: true });
+      return res.status(200).json({ user: response, token: token });
+    } catch (error) {
+      console.error('Error logging in user:', error);
+      res.status(500).json({ message: ' Server Error' });
+    }
+  }
+  @Post('logout')
+  logout(@Res() res: Response){
+    res.clearCookie("token")
   }
 
   @UseGuards(AuthGuard)
   @Get('profile')
-  getProfile(@Request() req) {
+  getProfile(@Request() @Body() req) {
     return req.user;
   }
   @Get()

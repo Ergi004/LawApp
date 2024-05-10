@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity({ name: 'Parts' })
-export class Parts {
+@Entity({ name: 'Part' })
+export  class Part {
   @PrimaryGeneratedColumn({ type: 'bigint' })
   part_id: number;
 
@@ -10,4 +10,5 @@ export class Parts {
 
   @Column()
   part_title: string;
+  lawCategories: any;
 }

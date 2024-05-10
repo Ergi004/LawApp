@@ -14,10 +14,10 @@ const Api = {
       throw error.response ? error.response.data.message : "Api Error";
     }
   },
-  getAllCategories: async (allCategories: IAllCategories | any) => {
+  getAllCategories: async (allCategories: IAllCategories[] | any) => {
     try {
       const response = await Axios.get("/category/getAll", allCategories);
-      return response;
+      return response.data.data;
     } catch (error: any) {
       throw error.response ? error.response.data.message : "Api Error";
     }
@@ -28,6 +28,15 @@ const Api = {
       return response;
     } catch (error: any) {
       throw error.response ? error.response.data.message : "Api Error";
+    }
+  },
+  getCategoryByPartId: async (part_id: number) => {
+    try {
+      const response = await Axios.get(`/category/findBy/${part_id}`)
+      return response
+    }catch (error: any){
+      throw error.response ? error.response.data.message : "Api Error";
+
     }
   },
   updateCategory: async (

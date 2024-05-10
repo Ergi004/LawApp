@@ -7,6 +7,7 @@ import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
+import { Response } from 'express';
 
 @Injectable()
 export class UsersService {
@@ -20,6 +21,11 @@ export class UsersService {
     return this.usersRepository.save(newUser);
   }
 
+  async generateToken(loginCredentials: LoginUserDto) {
+    const payload = { loginCredentials };
+    return this.jwtService.signAsync(payload);
+  }
+
   async login(loginCredentials: LoginUserDto) {
     const existingUsers = await this.usersRepository.find();
     const loggedUser = existingUsers.find(
@@ -27,11 +33,9 @@ export class UsersService {
         loginCredentials.email === user.email &&
         loginCredentials.password === user.password,
     );
-    const payload = { sub: loggedUser.id, user_name: loggedUser.user_name };
-    console.log(payload);
     if (!loggedUser) throw new UnauthorizedException('Invalid Credentials');
 
-    return { access_token: this.jwtService.signAsync(payload) };
+    return loggedUser;
   }
 
   findAll() {

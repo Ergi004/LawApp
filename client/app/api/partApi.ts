@@ -12,8 +12,8 @@ const Api = {
   },
   getAllParts: async (allParts: IAllParts | any) => {
     try {
-      const response = Axios.get("/parts/getAll", allParts);
-      return response;
+      const response = await Axios.get("/parts/getAll", allParts);
+      return response.data.data;
     } catch (error: any) {
       throw error.response ? error.response.data.message : "Api Error";
     }

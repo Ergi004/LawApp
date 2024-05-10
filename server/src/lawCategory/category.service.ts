@@ -17,8 +17,13 @@ export class CategoryService {
     return this.lawCategoryRepository.save(createdLawCategory);
   }
 
-  findAll() {
+  async findAll() {
+    console.log(await this.lawCategoryRepository.find());
     return this.lawCategoryRepository.find();
+  }
+
+  async findBy(part_id: number) {
+    return await this.lawCategoryRepository.findBy({ part_id });
   }
 
   findOne(category_id: number) {

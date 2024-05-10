@@ -33,7 +33,17 @@ export class CategoryController {
   @Get('getAll')
   async findAll() {
     try {
-      return await this.categoryService.findAll();
+      const categories = await this.categoryService.findAll();
+      return { data: categories };
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+  @Get('findBy/:part_id')
+  async findOneBy(@Param('part_id') part_id: number) {
+    try {
+      const categoryByPartId = await this.categoryService.findBy(+part_id);
+      return { data: categoryByPartId };
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }

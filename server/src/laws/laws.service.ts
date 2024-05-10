@@ -2,14 +2,14 @@ import { Injectable } from '@nestjs/common';
 import { CreateLawDto } from './dto/create-law.dto';
 import { UpdateLawDto } from './dto/update-law.dto';
 import { Repository } from 'typeorm';
-import { Laws } from './entities/law.entity';
+import { Law } from './entities/law.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class LawsService {
   constructor(
-    @InjectRepository(Laws)
-    private lawRepository: Repository<Laws>,
+    @InjectRepository(Law)
+    private lawRepository: Repository<Law>,
   ) {}
   create(createLawDto: CreateLawDto) {
     const createdLaw = this.lawRepository.create(createLawDto);
