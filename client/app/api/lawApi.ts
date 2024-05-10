@@ -1,5 +1,6 @@
 import Axios from "./axios";
 import { ICreateLaw, IGetAllLaws, IUpdateLaw } from "../models/lawModel";
+import { Category } from "@mui/icons-material";
 
 const Api = {
   createLaw: async (createLaw: ICreateLaw) => {
@@ -26,6 +27,14 @@ const Api = {
       throw error.response ? error.response.data.message : "Api Error";
     }
   },
+  getLawByCategoryId: async (category_id: number) => {
+    try {
+      const response = await Axios.get(`/laws/findBy/${category_id}`);
+      return response.data;
+    } catch (error: any) {
+      throw error.response ? error.response.data.message : "Api Error";
+    }
+  },
   updateLaw: async (law_id: number, updateLaw: IUpdateLaw) => {
     try {
       const response = await Axios.patch(`/laws/update/${law_id}`, updateLaw);
@@ -43,6 +52,5 @@ const Api = {
     }
   },
 };
-
 
 export default Api;

@@ -40,7 +40,7 @@ export class CategoryController {
     }
   }
   @Get('findBy/:part_id')
-  async findOneBy(@Param('part_id') part_id: number) {
+  async findBy(@Param('part_id') part_id: number) {
     try {
       const categoryByPartId = await this.categoryService.findBy(+part_id);
       return { data: categoryByPartId };

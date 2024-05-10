@@ -13,12 +13,12 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { ICreateUser } from "../models/userModel";
+import { ISignUp } from "../models/userModel";
 import Api from "../api/authApi";
 import { useRouter } from "next/navigation";
 
 const SignUp: React.FC = () => {
-  const [createUser, setCreateUser] = useState<ICreateUser>({
+  const [createUser, setCreateUser] = useState<ISignUp>({
     user_name: "",
     last_name: "",
     email: "",
@@ -29,7 +29,6 @@ const SignUp: React.FC = () => {
   const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      console.log(createUser);
       const response = await Api.register(createUser);
       router.push("/login")
       return response;

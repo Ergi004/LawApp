@@ -17,7 +17,12 @@ export class UsersService {
     private jwtService: JwtService,
   ) {}
   async register(createUser: CreateUserDto): Promise<User> {
-    const newUser = this.usersRepository.create({ ...createUser });
+    const { password, ...rest } = createUser;
+    const hashedPassword = await bcrypt.hash(password, 10); // 10 is the salt rounds
+    const newUser = this.usersRepository.create({
+      password: hashedPassword,
+      ...rest,
+    });
     return this.usersRepository.save(newUser);
   }
 
@@ -27,16 +32,21 @@ export class UsersService {
   }
 
   async login(loginCredentials: LoginUserDto) {
-    const existingUsers = await this.usersRepository.find();
-    const loggedUser = existingUsers.find(
-      (user) =>
-        loginCredentials.email === user.email &&
-        loginCredentials.password === user.password,
-    );
-    if (!loggedUser) throw new UnauthorizedException('Invalid Credentials');
-
-    return loggedUser;
+    const { email, password } = loginCredentials;
+    const existingUser = await this.usersRepository.findOneBy({ email });
+  
+  if (!existingUser) {
+    throw new UnauthorizedException('Invalid email or password');
   }
+
+  const isPasswordValid = await bcrypt.compare(password, existingUser.password);
+
+  if (!isPasswordValid) {
+    throw new UnauthorizedException('Invalid email or password');
+  }
+
+  return existingUser;
+}
 
   findAll() {
     return this.usersRepository.find();

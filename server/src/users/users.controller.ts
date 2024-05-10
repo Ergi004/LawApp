@@ -39,7 +39,6 @@ export class UsersController {
   @Post('login')
   async login(@Body() loginUser: LoginUserDto,@Res() res: Response) {
     try {
-      // console.log(loginUser);
       const response = await this.usersService.login(loginUser);
       const token = await this.usersService.generateToken(response);
       res.cookie('token', token, { maxAge: 10000000 ,httpOnly: true });

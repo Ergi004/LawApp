@@ -23,8 +23,10 @@ import Logout from "../components/Logout/Logout";
 import { IAllParts } from "../models/partModel";
 import Api from "../api/partApi";
 import CategoryApi from "../api/categoryApi";
-import { TableBody, TableCell, TableRow } from "@mui/material";
-import { IAllCategories } from "../models/categoryModel";
+import { IAllCategories, ICreateCategory } from "../models/categoryModel";
+import { IGetAllLaws } from "../models/lawModel";
+import LawApi from "../api/lawApi";
+import { ICreateUser } from "../models/userModel";
 
 const drawerWidth: number = 240;
 
@@ -92,20 +94,41 @@ const AuthGuard = ({ children }: any) => {
 export interface HandlePartClick {
   (part: Part): void;
 }
+export interface GetLawByCategoryId {
+  (category: ICreateCategory): void;
+}
 
 const Dashboard: React.FC = () => {
   const [open, setOpen] = useState(true);
+  const [loggedUser, setLoggedUser] = useState<ICreateUser>();
   const [parts, setParts] = useState<IAllParts[]>([]);
   const [categories, setCategories] = useState<IAllCategories[]>([]);
-  const [laws, setLaws] = useState();
+  const [laws, setLaws] = useState<IGetAllLaws[]>([]);
   const toggleDrawer = () => {
     setOpen(!open);
+  };
+
+  const getLoggedUser = () => {
+    const data: any = localStorage.getItem("user");
+    const user = JSON.parse(data);
+    setLoggedUser(user);
+    console.log(user);
+  };
+
+  const getAllLaws = async () => {
+    const resposne = await LawApi.getAllLaws(laws);
+    setLaws(resposne.data);
+  };
+
+  const getLawByCategoryId = async (category: ICreateCategory) => {
+    const response = await LawApi.getLawByCategoryId(category.category_id);
+    setLaws(response.data);
   };
   const handlePartClick: HandlePartClick = async (part: Part) => {
     const response = await CategoryApi.getCategoryByPartId(
       part.part_id as number
     );
-    setCategories(response.data);
+    setCategories(response.data.data);
   };
   const getAllParts = async () => {
     const response = await Api.getAllParts(parts);
@@ -113,6 +136,8 @@ const Dashboard: React.FC = () => {
   };
   useEffect(() => {
     getAllParts();
+    getAllLaws();
+    getLoggedUser();
   }, []);
 
   return (
@@ -123,7 +148,7 @@ const Dashboard: React.FC = () => {
           <AppBar position="absolute" open={open}>
             <Toolbar
               sx={{
-                pr: "24px", // keep right padding when drawer closed
+                pr: "24px",
               }}
             >
               <IconButton
@@ -145,7 +170,7 @@ const Dashboard: React.FC = () => {
                 noWrap
                 sx={{ flexGrow: 1 }}
               >
-                Dashboard
+                Welcome {loggedUser?.user_name}
               </Typography>
               <Logout />
             </Toolbar>
@@ -165,7 +190,12 @@ const Dashboard: React.FC = () => {
             </Toolbar>
             <Divider />
             <List component="nav">
-              <MainListItems parts={parts} handlePartClick={handlePartClick} />
+              <MainListItems
+                parts={parts}
+                handlePartClick={handlePartClick}
+                categories={categories}
+                getLawByCategoryId={getLawByCategoryId}
+              />
               <Divider sx={{ my: 1 }} />
             </List>
           </Drawer>
@@ -184,7 +214,7 @@ const Dashboard: React.FC = () => {
             <Toolbar />
             <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
               <Grid container spacing={3}>
-                <Grid item xs={12} md={8} lg={13}>
+                <Grid item xs={12} md={12} lg={13}>
                   <Paper
                     sx={{
                       p: 2,
@@ -193,6 +223,20 @@ const Dashboard: React.FC = () => {
                       minHeight: 240,
                     }}
                   >
+                    {laws.map?.((law) => (
+                      <Box
+                        key={law.law_id}
+                        sx={{ margin: "10px", boxShadow: 2, padding: "20px" }}
+                      >
+                        <Typography variant="h5">{law.written_date}</Typography>
+                        <Typography sx={{ textAlign: "center" }} variant="h5">
+                          {law.law_name}
+                        </Typography>
+                        <Typography variant="h6">
+                          {law.law_description}
+                        </Typography>
+                      </Box>
+                    ))}
                   </Paper>
                 </Grid>
               </Grid>

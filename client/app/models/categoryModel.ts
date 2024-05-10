@@ -1,6 +1,6 @@
 export interface ICreateCategory {
-  part_id?: number
-  category_id?: number
+  part_id: number
+  category_id: number
   category_number: string
   category_title: string  
 }

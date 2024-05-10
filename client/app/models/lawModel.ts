@@ -1,9 +1,9 @@
 export interface ICreateLaw {
-  law_id?: number;
+  law_id: number;
   law_name: string
   law_description: string
   written_date: string
-  category_id?: number 
+  category_id: number 
 }
 
 export interface IGetAllLaws extends ICreateLaw {}

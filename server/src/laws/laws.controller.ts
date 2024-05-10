@@ -37,9 +37,19 @@ export class LawsController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: number) {
+  async findOne(@Param('id') id: number) {
     try {
-      return this.lawsService.findOne(+id);
+      return await this.lawsService.findOne(+id);
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  @Get('findBy/:category_id')
+  async findBy(@Param('category_id') category_id: number) {
+    try {
+      const lawByCaegoriId = await this.lawsService.findBy(+category_id);
+      return { data: lawByCaegoriId };
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }

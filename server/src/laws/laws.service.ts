@@ -24,6 +24,10 @@ export class LawsService {
     return this.lawRepository.findOneBy({ law_id });
   }
 
+  findBy(category_id: number) {
+    return this.lawRepository.findBy({ category_id });
+  }
+
   update(law_id: number, updateLawDto: UpdateLawDto) {
     return this.lawRepository.update(law_id, updateLawDto);
   }

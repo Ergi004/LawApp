@@ -3,11 +3,12 @@ import {
   IAllUsers,
   ICreateUser,
   ILoginUser,
+  ISignUp,
   IUpdateUser,
 } from "../models/userModel";
 
 const Api = {
-  register: async (createUser: ICreateUser) => {
+  register: async (createUser: ISignUp) => {
     try {
       const response = await Axios.post<ICreateUser>(
         "/users/register",
@@ -22,8 +23,6 @@ const Api = {
     try {
       // console.log(loginUser)
       const response = await Axios.post<ILoginUser>("/users/login", loginUser);
-      const user = response.data.user
-      console.log(response)
       return response.data;
     } catch (error: any) {
       throw error.response ? error.response.data.message : "Api Error";
