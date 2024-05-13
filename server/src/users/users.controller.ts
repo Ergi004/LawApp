@@ -10,7 +10,7 @@ import {
   HttpException,
   HttpStatus,
   UseGuards,
-  Res
+  Res,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -37,11 +37,11 @@ export class UsersController {
   }
 
   @Post('login')
-  async login(@Body() loginUser: LoginUserDto,@Res() res: Response) {
+  async login(@Body() loginUser: LoginUserDto, @Res() res: Response) {
     try {
       const response = await this.usersService.login(loginUser);
       const token = await this.usersService.generateToken(response);
-      res.cookie('token', token, { maxAge: 10000000 ,httpOnly: true });
+      res.cookie('token', token, { maxAge: 10000000, httpOnly: true });
       return res.status(200).json({ user: response, token: token });
     } catch (error) {
       console.error('Error logging in user:', error);
@@ -49,8 +49,8 @@ export class UsersController {
     }
   }
   @Post('logout')
-  logout(@Res() res: Response){
-    res.clearCookie("token")
+  logout(@Res() res: Response) {
+    res.clearCookie('token');
   }
 
   @UseGuards(AuthGuard)
@@ -58,11 +58,11 @@ export class UsersController {
   getProfile(@Request() @Body() req) {
     return req.user;
   }
-  @Get()
-  async findAll(allUsers: AllUsers) {
+  @Get('getAll')
+  async findAll() {
     try {
-      await this.usersService.findAll();
-      return { data: allUsers, message: 'All Users' };
+      const allUsers = await this.usersService.findAll();
+      return allUsers;
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
@@ -88,9 +88,9 @@ export class UsersController {
   }
 
   @Delete('delete/:id')
-  remove(@Param('id') id: number) {
+  async delete(@Param('id') id: number) {
     try {
-      return this.usersService.remove(+id);
+      return await this.usersService.remove(+id);
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }

@@ -34,25 +34,28 @@ export class UsersService {
   async login(loginCredentials: LoginUserDto) {
     const { email, password } = loginCredentials;
     const existingUser = await this.usersRepository.findOneBy({ email });
-  
-  if (!existingUser) {
-    throw new UnauthorizedException('Invalid email or password');
+
+    if (!existingUser) {
+      throw new UnauthorizedException('Invalid email or password');
+    }
+
+    const isPasswordValid = await bcrypt.compare(
+      password,
+      existingUser.password,
+    );
+
+    if (!isPasswordValid) {
+      throw new UnauthorizedException('Invalid email or password');
+    }
+
+    return existingUser;
   }
 
-  const isPasswordValid = await bcrypt.compare(password, existingUser.password);
-
-  if (!isPasswordValid) {
-    throw new UnauthorizedException('Invalid email or password');
+  async findAll() {
+    return await this.usersRepository.find();
   }
 
-  return existingUser;
-}
-
-  findAll() {
-    return this.usersRepository.find();
-  }
-
-  findOne(id: number): Promise<User | null> {
+  findOne(id: number) {
     return this.usersRepository.findOneBy({ id });
   }
 

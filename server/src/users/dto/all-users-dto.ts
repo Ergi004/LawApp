@@ -13,5 +13,4 @@ export class AllUsers {
 
   @IsString()
   password: string;
-
 }

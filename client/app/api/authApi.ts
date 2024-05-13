@@ -3,12 +3,11 @@ import {
   IAllUsers,
   ICreateUser,
   ILoginUser,
-  ISignUp,
   IUpdateUser,
 } from "../models/userModel";
 
 const Api = {
-  register: async (createUser: ISignUp) => {
+  register: async (createUser: ICreateUser) => {
     try {
       const response = await Axios.post<ICreateUser>(
         "/users/register",
@@ -41,9 +40,9 @@ const Api = {
       throw error.response ? error.response.data.message : "Api Error";
     }
   },
-  deleteUser: async (user_id: number) => {
+  deleteUser: async (id: number) => {
     try {
-      const response = await Axios.delete(`/user/delete/${user_id}`);
+      const response = await Axios.delete(`/users/delete/${id}`);
       return response.data;
     } catch (error: any) {
       throw error.response ? error.response.data.message : "Api Error";
@@ -51,7 +50,7 @@ const Api = {
   },
   getAllUsers: async (allUsers: IAllUsers[] | any) => {
     try {
-      const response = await Axios.get<IAllUsers[]>("/users/", allUsers);
+      const response = await Axios.get<IAllUsers[]>("/users/getAll", allUsers);
       return response.data;
     } catch (error: any) {
       throw error.response ? error.response.data.message : "Api Error";

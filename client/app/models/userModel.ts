@@ -8,12 +8,12 @@ export interface ICreateUser {
   token?: any;
 }
 export interface ISignUp {
-  id?: number;
-  user_name?: string;
-  last_name?: string;
-  email?: string;
-  password?: string;
-  role?: string;
+  id: number;
+  user_name: string;
+  last_name: string;
+  email: string;
+  password: string;
+  role: string;
   token?: any;
 }
 
@@ -30,9 +30,13 @@ export interface ILoginUser extends ICreateUser {
     role?: string;
   };
   token?: any;
-
 }
 
 export interface IAllUsers {
-  user: ICreateUser;
+  id: number;
+  user_name: string;
+  last_name: string;
+  email: string;
+  password: string;
+  role: string;
 }

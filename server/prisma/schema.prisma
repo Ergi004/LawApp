@@ -37,7 +37,7 @@ model Part {
 
 model LawCategory {
   category_id     Int      @id @default(autoincrement())
-  category_number String
+  category_number String   
   category_title  String
   part_id         Int
   Part            Part    @relation(fields: [part_id], references: [part_id])
@@ -46,8 +46,8 @@ model LawCategory {
 
 model Law {
   law_id           Int         @id @default(autoincrement())
-  law_name         String
-  law_description  String
+  law_name         String      @db.Text
+  law_description  String      @db.Text
   written_date     DateTime
   category_id      Int
   LawCategory      LawCategory @relation(fields: [category_id], references: [category_id])

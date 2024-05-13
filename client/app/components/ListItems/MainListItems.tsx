@@ -9,9 +9,10 @@ import { GetLawByCategoryId, HandlePartClick } from "@/app/account/page";
 import Collapse from "@mui/material/Collapse";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
-import StarBorder from "@mui/icons-material/StarBorder";
 import { useState } from "react";
 import { IAllCategories } from "@/app/models/categoryModel";
+import SupervisedUserCircleIcon from "@mui/icons-material/SupervisedUserCircle";
+import { useRouter } from "next/navigation";
 
 export interface Part {
   part_id: number;
@@ -22,7 +23,7 @@ export interface Part {
 interface IMainListItems {
   parts: IAllParts[];
   handlePartClick: HandlePartClick;
-  categories: IAllCategories[]
+  categories: IAllCategories[];
   getLawByCategoryId: GetLawByCategoryId;
 }
 interface DropdownState {
@@ -33,17 +34,38 @@ const MainListItems: React.FC<IMainListItems> = ({
   parts,
   handlePartClick,
   categories,
-  getLawByCategoryId
+  getLawByCategoryId,
 }) => {
   const [toggleDrop, setToggleDrop] = useState<DropdownState>({});
+  const router = useRouter();
+
   const handleDropDown = (id: number) => {
-    setToggleDrop({})
+    setToggleDrop({});
     setToggleDrop((prevState) => ({ ...prevState, [id]: !prevState[id] }));
   };
-  
+
+  const gotToAdminDashboard = () => {
+    router.push("/adminAccount");
+  };
+
+  const goToUserEdit = () => {
+    router.push('/adminMenu')
+  }
 
   return (
     <Box>
+      <ListItemButton onClick={()=> goToUserEdit()}>
+        <ListItemIcon>
+          <SupervisedUserCircleIcon />
+        </ListItemIcon>
+        <ListItemText primary="Users" />
+      </ListItemButton>
+      <ListItemButton onClick={() => gotToAdminDashboard()}>
+        <ListItemIcon>
+          <AssignmentIcon />
+        </ListItemIcon>
+        <ListItemText primary="Edit Laws" />
+      </ListItemButton>
       {parts.map((part: Part) => {
         return (
           <Box>
@@ -59,15 +81,26 @@ const MainListItems: React.FC<IMainListItems> = ({
                 <AssignmentIcon />
               </ListItemIcon>
               <ListItemText primary={part.part_number} />
-              {toggleDrop[part.part_id] ? <ExpandLess  /> : <ExpandMore />}
+              {toggleDrop[part.part_id] ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
-            <Collapse in={toggleDrop[part.part_id]} timeout="auto" unmountOnExit>
+            <Collapse
+              in={toggleDrop[part.part_id]}
+              timeout="auto"
+              unmountOnExit
+            >
               {categories.map?.((category) => (
-              <List key={category.category_id} onClick={() => {getLawByCategoryId && getLawByCategoryId(category)}} component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemText primary={category.category_title} />
-                </ListItemButton>
-              </List>
+                <List
+                  key={category.category_id}
+                  onClick={() => {
+                    getLawByCategoryId && getLawByCategoryId(category);
+                  }}
+                  component="div"
+                  disablePadding
+                >
+                  <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemText primary={category.category_title} />
+                  </ListItemButton>
+                </List>
               ))}
             </Collapse>
           </Box>

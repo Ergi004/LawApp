@@ -29,6 +29,7 @@ import { ICreateUser } from "../models/userModel";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Button } from "@mui/material";
 import SearchBar from "../components/SearchBar/SearchBar";
+import AddLawModal from "../components/AddLawModal/AddLawModal";
 
 const drawerWidth: number = 240;
 
@@ -102,8 +103,17 @@ const Dashboard: React.FC = () => {
   const [parts, setParts] = useState<IAllParts[]>([]);
   const [categories, setCategories] = useState<IAllCategories[]>([]);
   const [laws, setLaws] = useState<IGetAllLaws[]>([]);
-  const [myLaws, setMyLaws] = useState<IGetAllLaws[]>([])
+  const [myLaws, setMyLaws] = useState<IGetAllLaws[]>([]);
   const router = useRouter();
+
+  const [openModal, setOpenModal] = React.useState(false);
+
+  const handleOpen = () => {
+    setOpenModal(true);
+  };
+  const handleClose = () => {
+    setOpenModal(false);
+  };
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -122,7 +132,7 @@ const Dashboard: React.FC = () => {
   const getAllLaws = async () => {
     const resposne = await LawApi.getAllLaws(laws);
     setLaws(resposne.data);
-    setMyLaws(resposne.data)
+    setMyLaws(resposne.data);
   };
 
   const getLawByCategoryId = async (category: ICreateCategory) => {
@@ -177,14 +187,20 @@ const Dashboard: React.FC = () => {
               >
                 Welcome {loggedUser?.user_name}
               </Typography>
-              <SearchBar laws={myLaws} set={setLaws}/>
+              <SearchBar laws={myLaws} set={setLaws} />
               <Button
                 onClick={() => goToMenu()}
                 variant="contained"
-                sx={{ margin: "0 20px" }}
                 startIcon={<MenuIcon />}
               >
-                Go to menu
+                Edit Users
+              </Button>
+              <Button
+                onClick={handleOpen}
+                sx={{ margin: "0 20px" }}
+                variant="contained"
+              >
+                Add Laws
               </Button>
               <Logout />
             </Toolbar>
@@ -254,6 +270,11 @@ const Dashboard: React.FC = () => {
                   </Paper>
                 </Grid>
               </Grid>
+              <AddLawModal
+                handleClose={handleClose}
+                handleOpen={handleOpen}
+                openModal={openModal}
+              />
             </Container>
           </Box>
         </Box>
