@@ -12,7 +12,6 @@ import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
-import Paper from "@mui/material/Paper";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { Part } from "../components/ListItems/MainListItems";
 import AdminListItems from "../components/AdminListItems/AdminListItems";
@@ -20,16 +19,24 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Logout from "../components/Logout/Logout";
 import { IAllParts } from "../models/partModel";
-import Api from "../api/partApi";
-import CategoryApi from "../api/categoryApi";
 import { IAllCategories, ICreateCategory } from "../models/categoryModel";
-import { IGetAllLaws } from "../models/lawModel";
-import LawApi from "../api/lawApi";
 import { ICreateUser } from "../models/userModel";
 import MenuIcon from "@mui/icons-material/Menu";
-import { Button } from "@mui/material";
-import SearchBar from "../components/SearchBar/SearchBar";
-import AddLawModal from "../components/AddLawModal/AddLawModal";
+import {
+  Button,
+  Card,
+  ListItemButton,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  TextField,
+} from "@mui/material";
+import Api from "../api/authApi";
+import CategoryApi from "../api/categoryApi";
+import { IGetAllLaws } from "../models/lawModel";
 
 const drawerWidth: number = 240;
 
@@ -97,61 +104,32 @@ export interface HandlePartClick {
   (part: Part): void;
 }
 
-const Dashboard: React.FC = () => {
+
+const EditLaws: React.FC = () => {
   const [open, setOpen] = useState(true);
   const [loggedUser, setLoggedUser] = useState<ICreateUser>();
   const [parts, setParts] = useState<IAllParts[]>([]);
   const [categories, setCategories] = useState<IAllCategories[]>([]);
-  const [laws, setLaws] = useState<IGetAllLaws[]>([]);
-  const [myLaws, setMyLaws] = useState<IGetAllLaws[]>([]);
-  const router = useRouter();
-
-  const [openModal, setOpenModal] = React.useState(false);
-
-  const handleOpen = () => {
-    setOpenModal(true);
-  };
-  const handleClose = () => {
-    setOpenModal(false);
-  };
   const toggleDrawer = () => {
     setOpen(!open);
   };
 
-  const goToMenu = () => {
-    router.push("/adminMenu");
-  };
-
-  const getLoggedUser = () => {
-    const data: any = localStorage.getItem("user");
-    const user = JSON.parse(data);
-    setLoggedUser(user);
-    console.log(user);
-  };
-
-  const getAllLaws = async () => {
-    const resposne = await LawApi.getAllLaws(laws);
-    setLaws(resposne.data);
-    setMyLaws(resposne.data);
-  };
-
-  const getLawByCategoryId = async (category: ICreateCategory) => {
-    const response = await LawApi.getLawByCategoryId(category.category_id);
-    setLaws(response.data);
-  };
   const handlePartClick: HandlePartClick = async (part: Part) => {
     const response = await CategoryApi.getCategoryByPartId(
       part.part_id as number
     );
     setCategories(response.data.data);
   };
-  const getAllParts = async () => {
-    const response = await Api.getAllParts(parts);
-    setParts(response);
+
+
+  const getLoggedUser = () => {
+    const data: any = localStorage.getItem("user");
+    const user = JSON.parse(data);
+    setLoggedUser(user);
   };
+
+
   useEffect(() => {
-    getAllParts();
-    getAllLaws();
     getLoggedUser();
   }, []);
 
@@ -187,21 +165,6 @@ const Dashboard: React.FC = () => {
               >
                 Welcome {loggedUser?.user_name}
               </Typography>
-              <SearchBar laws={myLaws} set={setLaws} />
-              <Button
-                onClick={() => goToMenu()}
-                variant="contained"
-                startIcon={<MenuIcon />}
-              >
-                Edit Users
-              </Button>
-              <Button
-                onClick={handleOpen}
-                sx={{ margin: "0 20px" }}
-                variant="contained"
-              >
-                Add Laws
-              </Button>
               <Logout />
             </Toolbar>
           </AppBar>
@@ -224,7 +187,6 @@ const Dashboard: React.FC = () => {
                 parts={parts}
                 handlePartClick={handlePartClick}
                 categories={categories}
-                getLawByCategoryId={getLawByCategoryId}
               />
               <Divider sx={{ my: 1 }} />
             </List>
@@ -242,39 +204,128 @@ const Dashboard: React.FC = () => {
             }}
           >
             <Toolbar />
-            <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-              <Grid container spacing={3}>
-                <Grid item xs={12} md={12} lg={13}>
-                  <Paper
+            <Container maxWidth="xl" sx={{ mt: 5, mb: 5 }}>
+              <Grid container spacing={1}>
+                <Grid item xs={12} md={12} lg={13} xl={12}>
+                  <Box
                     sx={{
                       p: 2,
                       display: "flex",
                       flexDirection: "column",
                       minHeight: 240,
+                      boxShadow: 10,
+                      backgroundColor: "white",
                     }}
                   >
-                    {laws.map((law) => (
+                    <Card sx={{ margin: "20px" }}>
                       <Box
-                        key={law.law_id}
-                        sx={{ margin: "10px", boxShadow: 2, padding: "20px" }}
+                        sx={{
+                          borderBottom: "0.5px #222222 solid",
+                          margin: "10px",
+                        }}
                       >
-                        <Typography variant="h5">{law.written_date}</Typography>
-                        <Typography sx={{ textAlign: "center" }} variant="h5">
-                          {law.law_name}
-                        </Typography>
-                        <Typography variant="h6">
-                          {law.law_description}
+                        <Typography
+                          sx={{ margin: "10px 40px", fontWeight: "bold" }}
+                          variant="h5"
+                        >
+                          Fill the forms to add Parts
                         </Typography>
                       </Box>
-                    ))}
-                  </Paper>
+                      <Box sx={{ margin: "20px", display: "flex" }}>
+                        <TextField
+                          id="outlined-basic"
+                          label="Part Number"
+                          variant="outlined"
+                          sx={{ margin: "0 30px", maxWidth: "400px" }}
+                        />
+                        <TextField
+                          id="outlined-basic"
+                          label="Part Title"
+                          variant="outlined"
+                          sx={{ margin: "0 30px", maxWidth: "400px" }}
+                        />
+                      </Box>
+                    </Card>
+                    <Card sx={{ margin: "20px" }}>
+                      <Box
+                        sx={{
+                          borderBottom: "0.5px black solid",
+                          margin: "10px",
+                        }}
+                      >
+                        <Typography
+                          sx={{ margin: "10px 40px", fontWeight: "bold" }}
+                          variant="h5"
+                        >
+                          Fill the forms to add Categories
+                        </Typography>
+                      </Box>
+                      <Box sx={{ margin: "20px", display: "flex" }}>
+                        <TextField
+                          id="outlined-basic"
+                          label="Category Number"
+                          variant="outlined"
+                          sx={{ margin: "0 30px", maxWidth: "400px" }}
+                        />
+                        <TextField
+                          id="outlined-basic"
+                          label="Category Title"
+                          variant="outlined"
+                          sx={{ margin: "0 30px", maxWidth: "400px" }}
+                        />
+                        <TextField
+                          id="outlined-basic"
+                          label="Part ID"
+                          variant="outlined"
+                          sx={{ margin: "0 30px", maxWidth: "400px" }}
+                        />
+                      </Box>
+                    </Card>
+                    <Card sx={{ margin: "20px" }}>
+                      <Box
+                        sx={{
+                          borderBottom: "0.5px  black solid",
+                          margin: "10px",
+                        }}
+                      >
+                        <Typography
+                          sx={{ margin: "10px 40px", fontWeight: "bold" }}
+                          variant="h5"
+                        >
+                          Fill the forms to add Laws
+                        </Typography>
+                      </Box>
+                      <Box sx={{ margin: "20px", display: "flex" }}>
+                        <TextField
+                          id="outlined-basic"
+                          label="Law Name"
+                          variant="outlined"
+                          sx={{ margin: "0 20px", maxWidth: "400px" }}
+                        />
+                        <TextField
+                          id="outlined-basic"
+                          label="Law Description"
+                          multiline
+                          maxRows={50}
+                          sx={{ margin: "0 20px", width: "500px" }}
+                        />
+                        <TextField
+                          id="outlined-basic"
+                          label="Category ID"
+                          variant="outlined"
+                          sx={{ margin: "0 20px", maxWidth: "400px" }}
+                        />
+                        <TextField
+                          id="outlined-basic"
+                          label="Written Date"
+                          variant="outlined"
+                          sx={{ margin: "0 20px", maxWidth: "400px" }}
+                        />
+                      </Box>
+                    </Card>
+                  </Box>
                 </Grid>
               </Grid>
-              <AddLawModal
-                handleClose={handleClose}
-                handleOpen={handleOpen}
-                openModal={openModal}
-              />
             </Container>
           </Box>
         </Box>
@@ -283,4 +334,4 @@ const Dashboard: React.FC = () => {
   );
 };
 
-export default Dashboard;
+export default EditLaws;

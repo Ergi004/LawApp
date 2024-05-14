@@ -19,7 +19,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Logout from "../components/Logout/Logout";
 import { IAllParts } from "../models/partModel";
-import { IAllCategories } from "../models/categoryModel";
+import { IAllCategories, ICreateCategory } from "../models/categoryModel";
 import LawApi from "../api/lawApi";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { IAllUsers, ICreateUser } from "../models/userModel";
@@ -35,7 +35,8 @@ import {
   TableRow,
 } from "@mui/material";
 import Api from "../api/authApi";
-import AddLawModal from "../components/AddLawModal/AddLawModal";
+import CategoryApi from "../api/categoryApi";
+import { IGetAllLaws } from "../models/lawModel";
 
 const drawerWidth: number = 240;
 
@@ -113,18 +114,27 @@ interface IHandleClose {
 
 const Dashboard: React.FC = () => {
   const [open, setOpen] = useState(true);
-
-
   const [loggedUser, setLoggedUser] = useState<ICreateUser>();
   const [allUsers, setAllUsers] = useState<IAllUsers[]>([]);
   const [parts, setParts] = useState<IAllParts[]>([]);
   const [categories, setCategories] = useState<IAllCategories[]>([]);
   const router = useRouter();
+  const [laws, setLaws] = useState<IGetAllLaws[]>([]);
   const toggleDrawer = () => {
     setOpen(!open);
   };
 
-  
+  const handlePartClick: HandlePartClick = async (part: Part) => {
+    const response = await CategoryApi.getCategoryByPartId(
+      part.part_id as number
+    );
+    setCategories(response.data.data);
+  };
+
+  const getLawByCategoryId = async (category: ICreateCategory) => {
+    const response = await LawApi.getLawByCategoryId(category.category_id);
+    setLaws(response.data);
+  };
   const getAllUsers = async () => {
     const response = await Api.getAllUsers(allUsers);
     console.log(response);
@@ -144,6 +154,7 @@ const Dashboard: React.FC = () => {
   };
 
   useEffect(() => {
+    getLoggedUser();
     getAllUsers();
   }, []);
 
@@ -197,7 +208,12 @@ const Dashboard: React.FC = () => {
             </Toolbar>
             <Divider />
             <List component="nav">
-              <AdminListItems />
+              <AdminListItems
+                parts={parts}
+                handlePartClick={handlePartClick}
+                categories={categories}
+                getLawByCategoryId={getLawByCategoryId}
+              />
               <Divider sx={{ my: 1 }} />
             </List>
           </Drawer>
@@ -213,7 +229,6 @@ const Dashboard: React.FC = () => {
               overflow: "auto",
             }}
           >
-
             <Toolbar />
             <Container maxWidth="xl" sx={{ mt: 5, mb: 5 }}>
               <Grid container spacing={1}>
@@ -294,7 +309,6 @@ const Dashboard: React.FC = () => {
                     </TableContainer>
                   </Box>
                 </Grid>
-                
               </Grid>
             </Container>
           </Box>

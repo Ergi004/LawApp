@@ -28,7 +28,7 @@ import { IGetAllLaws } from "../models/lawModel";
 import LawApi from "../api/lawApi";
 import { ICreateUser } from "../models/userModel";
 
-const drawerWidth: number = 240;
+const drawerWidth: number = 350;
 
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
