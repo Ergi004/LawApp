@@ -11,9 +11,9 @@ export class PartsService {
     @InjectRepository(Part)
     private partsRepository: Repository<Part>,
   ) {}
-  create(createPartDto: CreatePartDto) {
-    const partAdded = this.partsRepository.create(createPartDto)
-    return this.partsRepository.save(partAdded);
+   async create(createPartDto: CreatePartDto) {
+    const partAdded =  this.partsRepository.create(createPartDto)
+    return await this.partsRepository.save(partAdded);
   }
 
   async findAll() {
@@ -25,7 +25,7 @@ export class PartsService {
   }
 
   update(part_id: number, updatePartDto: UpdatePartDto) {
-    return this.partsRepository.update(part_id, updatePartDto);
+    return this.partsRepository.update(part_id, updatePartDto); 
   }
 
   async remove(part_id: number): Promise<void> {

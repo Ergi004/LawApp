@@ -1,12 +1,11 @@
 import Axios from "./axios";
 import { ICreateLaw, IGetAllLaws, IUpdateLaw } from "../models/lawModel";
-import { Category } from "@mui/icons-material";
 
 const Api = {
   createLaw: async (createLaw: ICreateLaw) => {
     try {
-      const response = await Axios.post("/law/create", createLaw);
-      return response;
+      const response = await Axios.post("/laws/create", createLaw);
+      return response.data;
     } catch (error: any) {
       throw error.response ? error.response.data.message : "Api Error";
     }

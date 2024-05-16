@@ -1,6 +1,6 @@
 "use client";
 import * as React from "react";
-import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import MuiDrawer from "@mui/material/Drawer";
 import Box from "@mui/material/Box";
@@ -13,37 +13,25 @@ import IconButton from "@mui/material/IconButton";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import { Part } from "../components/ListItems/MainListItems";
 import AdminListItems from "../components/AdminListItems/AdminListItems";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Logout from "../components/Logout/Logout";
-import { IAllParts } from "../models/partModel";
+import { IAllParts, ICreatePart, Part } from "../models/partModel";
 import { IAllCategories, ICreateCategory } from "../models/categoryModel";
 import { ICreateUser } from "../models/userModel";
 import MenuIcon from "@mui/icons-material/Menu";
-import {
-  Button,
-  Card,
-  ListItemButton,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  TextField,
-} from "@mui/material";
-import Api from "../api/authApi";
+import { Button, Card, TextField } from "@mui/material";
 import CategoryApi from "../api/categoryApi";
-import { IGetAllLaws } from "../models/lawModel";
+import { ICreateLaw, IGetAllLaws } from "../models/lawModel";
+import LawApi from "../api/lawApi";
+import PartApi from "../api/partApi";
+import { HandlePartClick } from "../models/functions";
+import AuthGuard from "../components/AuthGuard/AuthGuard";
 
-const drawerWidth: number = 240;
-
+const drawerWidth: number = 350;
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
 }
-
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
 })<AppBarProps>(({ theme, open }) => ({
@@ -61,7 +49,6 @@ const AppBar = styled(MuiAppBar, {
     }),
   }),
 }));
-
 const Drawer = styled(MuiDrawer, {
   shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }) => ({
@@ -88,21 +75,6 @@ const Drawer = styled(MuiDrawer, {
   },
 }));
 
-const defaultTheme = createTheme();
-
-const AuthGuard = ({ children }: any) => {
-  const router = useRouter();
-  useEffect(() => {
-    if (!window.localStorage.getItem("token")) {
-      router.push("/");
-    }
-  }, [router]);
-  return <>{children}</>;
-};
-
-export interface HandlePartClick {
-  (part: Part): void;
-}
 
 
 const EditLaws: React.FC = () => {
@@ -110,17 +82,14 @@ const EditLaws: React.FC = () => {
   const [loggedUser, setLoggedUser] = useState<ICreateUser>();
   const [parts, setParts] = useState<IAllParts[]>([]);
   const [categories, setCategories] = useState<IAllCategories[]>([]);
+  const [laws, setLaws] = useState<IGetAllLaws[]>([]);
+  const [createPart, setCreatePart] = useState<ICreatePart>();
+  const [createCategory, setCreateCategory] = useState<ICreateCategory>();
+  const [createLaw, setCreateLaw] = useState<ICreateLaw>();
+
   const toggleDrawer = () => {
     setOpen(!open);
   };
-
-  const handlePartClick: HandlePartClick = async (part: Part) => {
-    const response = await CategoryApi.getCategoryByPartId(
-      part.part_id as number
-    );
-    setCategories(response.data.data);
-  };
-
 
   const getLoggedUser = () => {
     const data: any = localStorage.getItem("user");
@@ -128,14 +97,54 @@ const EditLaws: React.FC = () => {
     setLoggedUser(user);
   };
 
+  const getAllLaws = async () => {
+    const resposne = await LawApi.getAllLaws(laws);
+    setLaws(resposne.data);
+  };
 
+  const getLawByCategoryId = async (category: ICreateCategory) => {
+    const response = await LawApi.getLawByCategoryId(category.category_id);
+    setLaws(response.data);
+  };
+  const handlePartClick: HandlePartClick = async (
+    part: Part | ICreateCategory
+  ) => {
+    const response = await CategoryApi.getCategoryByPartId(
+      part.part_id as number
+    );
+    setCategories(response.data.data);
+  };
+  const getAllParts = async () => {
+    const response = await PartApi.getAllParts(parts);
+    setParts(response);
+  };
+
+  const addPart = async () => {
+    const response = await PartApi.createPart(createPart as ICreatePart);
+    setCreatePart(response.data);
+    getAllParts();
+  };
+
+  const addCategory = async () => {
+    const response = await CategoryApi.createCategory(
+      createCategory as ICreateCategory
+    );
+    setCreateCategory(response.data);
+    handlePartClick(response.data);
+  };
+
+  const addLaw = async () => {
+    const response = await LawApi.createLaw(createLaw as ICreateLaw);
+    setCreateLaw(response.data);
+  };
   useEffect(() => {
+    getAllParts();
+    getAllLaws();
     getLoggedUser();
   }, []);
 
   return (
     <AuthGuard>
-      <ThemeProvider theme={defaultTheme}>
         <Box sx={{ display: "flex" }}>
           <CssBaseline />
           <AppBar position="absolute" open={open}>
@@ -187,6 +196,7 @@ const EditLaws: React.FC = () => {
                 parts={parts}
                 handlePartClick={handlePartClick}
                 categories={categories}
+                getLawByCategoryId={getLawByCategoryId}
               />
               <Divider sx={{ my: 1 }} />
             </List>
@@ -231,19 +241,46 @@ const EditLaws: React.FC = () => {
                           Fill the forms to add Parts
                         </Typography>
                       </Box>
-                      <Box sx={{ margin: "20px", display: "flex" }}>
+                      <Box
+                        sx={{
+                          margin: "20px",
+                          display: "flex",
+                          alignItems: "center",
+                        }}
+                      >
                         <TextField
                           id="outlined-basic"
                           label="Part Number"
                           variant="outlined"
+                          value={createPart?.part_number}
+                          onChange={(e) =>
+                            setCreatePart((prev: any) => ({
+                              ...prev,
+                              part_number: e.target.value,
+                            }))
+                          }
                           sx={{ margin: "0 30px", maxWidth: "400px" }}
                         />
                         <TextField
                           id="outlined-basic"
                           label="Part Title"
+                          value={createPart?.part_title}
+                          onChange={(e) =>
+                            setCreatePart((prev: any) => ({
+                              ...prev,
+                              part_title: e.target.value,
+                            }))
+                          }
                           variant="outlined"
                           sx={{ margin: "0 30px", maxWidth: "400px" }}
                         />
+                        <Button
+                          onClick={() => addPart()}
+                          variant="contained"
+                          sx={{ maxWidth: "130px", height: "35px" }}
+                        >
+                          Add Part
+                        </Button>
                       </Box>
                     </Card>
                     <Card sx={{ margin: "20px" }}>
@@ -260,25 +297,59 @@ const EditLaws: React.FC = () => {
                           Fill the forms to add Categories
                         </Typography>
                       </Box>
-                      <Box sx={{ margin: "20px", display: "flex" }}>
+                      <Box
+                        sx={{
+                          margin: "20px",
+                          display: "flex",
+                          alignItems: "center",
+                        }}
+                      >
                         <TextField
                           id="outlined-basic"
                           label="Category Number"
                           variant="outlined"
                           sx={{ margin: "0 30px", maxWidth: "400px" }}
+                          value={createCategory?.category_number}
+                          onChange={(e) =>
+                            setCreateCategory((prev: any) => ({
+                              ...prev,
+                              category_number: e.target.value,
+                            }))
+                          }
                         />
                         <TextField
                           id="outlined-basic"
                           label="Category Title"
                           variant="outlined"
                           sx={{ margin: "0 30px", maxWidth: "400px" }}
+                          value={createCategory?.category_title}
+                          onChange={(e) =>
+                            setCreateCategory((prev: any) => ({
+                              ...prev,
+                              category_title: e.target.value,
+                            }))
+                          }
                         />
                         <TextField
                           id="outlined-basic"
                           label="Part ID"
                           variant="outlined"
                           sx={{ margin: "0 30px", maxWidth: "400px" }}
+                          value={createCategory?.part_id}
+                          onChange={(e) =>
+                            setCreateCategory((prev: any) => ({
+                              ...prev,
+                              part_id: e.target.value,
+                            }))
+                          }
                         />
+                        <Button
+                          variant="contained"
+                          sx={{ maxWidth: "130px", height: "35px" }}
+                          onClick={() => addCategory()}
+                        >
+                          Add Part
+                        </Button>
                       </Box>
                     </Card>
                     <Card sx={{ margin: "20px" }}>
@@ -286,6 +357,7 @@ const EditLaws: React.FC = () => {
                         sx={{
                           borderBottom: "0.5px  black solid",
                           margin: "10px",
+                          alignItems: "center",
                         }}
                       >
                         <Typography
@@ -295,12 +367,25 @@ const EditLaws: React.FC = () => {
                           Fill the forms to add Laws
                         </Typography>
                       </Box>
-                      <Box sx={{ margin: "20px", display: "flex" }}>
+                      <Box
+                        sx={{
+                          margin: "20px",
+                          display: "flex",
+                          flexWrap: "wrap",
+                        }}
+                      >
                         <TextField
                           id="outlined-basic"
                           label="Law Name"
                           variant="outlined"
                           sx={{ margin: "0 20px", maxWidth: "400px" }}
+                          value={createLaw?.law_name}
+                          onChange={(e) =>
+                            setCreateLaw((prev: any) => ({
+                              ...prev,
+                              law_name: e.target.value,
+                            }))
+                          }
                         />
                         <TextField
                           id="outlined-basic"
@@ -308,19 +393,47 @@ const EditLaws: React.FC = () => {
                           multiline
                           maxRows={50}
                           sx={{ margin: "0 20px", width: "500px" }}
+                          value={createLaw?.law_description}
+                          onChange={(e) =>
+                            setCreateLaw((prev: any) => ({
+                              ...prev,
+                              law_description: e.target.value,
+                            }))
+                          }
                         />
                         <TextField
                           id="outlined-basic"
                           label="Category ID"
                           variant="outlined"
                           sx={{ margin: "0 20px", maxWidth: "400px" }}
+                          value={createLaw?.category_id}
+                          onChange={(e) =>
+                            setCreateLaw((prev: any) => ({
+                              ...prev,
+                              category_id: e.target.value,
+                            }))
+                          }
                         />
                         <TextField
                           id="outlined-basic"
                           label="Written Date"
                           variant="outlined"
                           sx={{ margin: "0 20px", maxWidth: "400px" }}
+                          value={createLaw?.written_date}
+                          onChange={(e) =>
+                            setCreateLaw((prev: any) => ({
+                              ...prev,
+                              written_date: e.target.value,
+                            }))
+                          }
                         />
+                        <Button
+                          variant="contained"
+                          sx={{ maxWidth: "130px", height: "35px" }}
+                          onClick={() => addLaw()}
+                        >
+                          Add Part
+                        </Button>
                       </Box>
                     </Card>
                   </Box>
@@ -329,7 +442,6 @@ const EditLaws: React.FC = () => {
             </Container>
           </Box>
         </Box>
-      </ThemeProvider>
     </AuthGuard>
   );
 };

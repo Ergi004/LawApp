@@ -4,8 +4,12 @@ export interface ICreateUser {
   last_name: string;
   email: string;
   password: string;
-  role: string;
+  role?: string;
   token?: any;
+}
+export interface ICredentials {
+  email: string
+  password: string
 }
 export interface ISignUp {
   id: number;

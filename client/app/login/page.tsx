@@ -14,14 +14,14 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { ICreateUser, ILoginUser } from "../models/userModel";
+import { ICreateUser, ICredentials, ILoginUser } from "../models/userModel";
 import Api from "../api/authApi";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 
 const Login: React.FC = () => {
   const router = useRouter()
-  const [loginUser, setLoginUser] = useState<ICreateUser>({
+  const [loginUser, setLoginUser] = useState<ICredentials>({
     email: "",
     password: "",
   });

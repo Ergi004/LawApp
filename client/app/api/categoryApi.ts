@@ -8,8 +8,8 @@ import {
 const Api = {
   createCategory: async (createCategory: ICreateCategory) => {
     try {
-      const response = Axios.post("/category/create", createCategory);
-      return response;
+      const response = await Axios.post("/category/create", createCategory);
+      return response.data;
     } catch (error: any) {
       throw error.response ? error.response.data.message : "Api Error";
     }
@@ -36,7 +36,6 @@ const Api = {
       return response
     }catch (error: any){
       throw error.response ? error.response.data.message : "Api Error";
-
     }
   },
   updateCategory: async (

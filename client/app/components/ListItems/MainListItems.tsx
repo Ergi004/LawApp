@@ -3,33 +3,28 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import AssignmentIcon from "@mui/icons-material/Assignment";
-import { IAllParts } from "@/app/models/partModel";
+import { IAllParts, Part } from "@/app/models/partModel";
 import { Box, List } from "@mui/material";
-import { GetLawByCategoryId, HandlePartClick } from "@/app/account/page";
 import Collapse from "@mui/material/Collapse";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import { useState } from "react";
 import { IAllCategories } from "@/app/models/categoryModel";
-import SupervisedUserCircleIcon from "@mui/icons-material/SupervisedUserCircle";
-import { useRouter } from "next/navigation";
-import BorderColorIcon from "@mui/icons-material/BorderColor";
 import GavelIcon from "@mui/icons-material/Gavel";
-
-export interface Part {
-  part_id: number;
-  part_number: string;
-  part_title: string;
-}
+import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
+import {
+  DropdownState,
+  GetLawByCategoryId,
+  HandlePartClick,
+  IGetAllLawsProp,
+} from "@/app/models/functions";
 
 interface IMainListItems {
   parts: IAllParts[];
   handlePartClick: HandlePartClick;
   categories: IAllCategories[];
-  getLawByCategoryId: GetLawByCategoryId;
-}
-interface DropdownState {
-  [key: number]: boolean;
+  getLawByCategoryId?: GetLawByCategoryId;
+  getAllLaws: IGetAllLawsProp;
 }
 
 const MainListItems: React.FC<IMainListItems> = ({
@@ -37,21 +32,27 @@ const MainListItems: React.FC<IMainListItems> = ({
   handlePartClick,
   categories,
   getLawByCategoryId,
+  getAllLaws,
 }) => {
   const [toggleDrop, setToggleDrop] = useState<DropdownState>({});
-  const router = useRouter();
   const [open, setOpen] = React.useState(true);
 
   const handleClick = () => {
     setOpen(!open);
   };
   const handleDropDown = (id: number) => {
-    setToggleDrop({});
+    setToggleDrop([]);
     setToggleDrop((prevState) => ({ ...prevState, [id]: !prevState[id] }));
   };
 
   return (
     <Box>
+      <ListItemButton onClick={() => getAllLaws()}>
+        <ListItemIcon>
+          <AccountBalanceIcon />
+        </ListItemIcon>
+        <ListItemText primary="Te gjitha" />
+      </ListItemButton>
       <ListItemButton onClick={handleClick}>
         <ListItemIcon>
           <GavelIcon />

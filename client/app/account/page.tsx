@@ -1,6 +1,6 @@
 "use client";
 import * as React from "react";
-import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import MuiDrawer from "@mui/material/Drawer";
 import Box from "@mui/material/Box";
@@ -13,27 +13,26 @@ import IconButton from "@mui/material/IconButton";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
+import AuthGuard from "../components/AuthGuard/AuthGuard";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import { Part } from "../components/ListItems/MainListItems";
 import MainListItems from "../components/ListItems/MainListItems";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Logout from "../components/Logout/Logout";
-import { IAllParts } from "../models/partModel";
+import { IAllParts, Part } from "../models/partModel";
 import Api from "../api/partApi";
 import CategoryApi from "../api/categoryApi";
 import { IAllCategories, ICreateCategory } from "../models/categoryModel";
 import { IGetAllLaws } from "../models/lawModel";
 import LawApi from "../api/lawApi";
 import { ICreateUser } from "../models/userModel";
+import { HandlePartClick } from "../models/functions";
+import AllLaws from "../components/AllLaws/AllLaws";
 
-const drawerWidth: number = 350;
-
+const drawerWidth: number = 320;
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
 }
-
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
 })<AppBarProps>(({ theme, open }) => ({
@@ -51,7 +50,6 @@ const AppBar = styled(MuiAppBar, {
     }),
   }),
 }));
-
 const Drawer = styled(MuiDrawer, {
   shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }) => ({
@@ -78,25 +76,6 @@ const Drawer = styled(MuiDrawer, {
   },
 }));
 
-// TODO remove, this demo shouldn't need to reset the theme.
-const defaultTheme = createTheme();
-
-const AuthGuard = ({ children }: any) => {
-  const router = useRouter();
-  useEffect(() => {
-    if (!window.localStorage.getItem("token")) {
-      router.push("/");
-    }
-  }, [router]);
-  return <>{children}</>;
-};
-
-export interface HandlePartClick {
-  (part: Part): void;
-}
-export interface GetLawByCategoryId {
-  (category: ICreateCategory): void;
-}
 
 const Dashboard: React.FC = () => {
   const [open, setOpen] = useState(true);
@@ -142,7 +121,6 @@ const Dashboard: React.FC = () => {
 
   return (
     <AuthGuard>
-      <ThemeProvider theme={defaultTheme}>
         <Box sx={{ display: "flex" }}>
           <CssBaseline />
           <AppBar position="absolute" open={open}>
@@ -195,6 +173,7 @@ const Dashboard: React.FC = () => {
                 handlePartClick={handlePartClick}
                 categories={categories}
                 getLawByCategoryId={getLawByCategoryId}
+                getAllLaws={getAllLaws}
               />
               <Divider sx={{ my: 1 }} />
             </List>
@@ -213,37 +192,10 @@ const Dashboard: React.FC = () => {
           >
             <Toolbar />
             <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-              <Grid container spacing={3}>
-                <Grid item xs={12} md={12} lg={13}>
-                  <Paper
-                    sx={{
-                      p: 2,
-                      display: "flex",
-                      flexDirection: "column",
-                      minHeight: 240,
-                    }}
-                  >
-                    {laws.map?.((law) => (
-                      <Box
-                        key={law.law_id}
-                        sx={{ margin: "10px", boxShadow: 2, padding: "20px" }}
-                      >
-                        <Typography variant="h5">{law.written_date}</Typography>
-                        <Typography sx={{ textAlign: "center" }} variant="h5">
-                          {law.law_name}
-                        </Typography>
-                        <Typography variant="h6">
-                          {law.law_description}
-                        </Typography>
-                      </Box>
-                    ))}
-                  </Paper>
-                </Grid>
-              </Grid>
+              <AllLaws laws={laws}/>
             </Container>
           </Box>
         </Box>
-      </ThemeProvider>
     </AuthGuard>
   );
 };

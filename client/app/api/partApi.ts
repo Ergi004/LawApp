@@ -5,7 +5,7 @@ const Api = {
   createPart: async (createPart: ICreatePart) => {
     try {
       const response = await Axios.post("/parts/create", createPart);
-      return response;
+      return response.data;
     } catch (error: any) {
       throw error.response ? error.response.data.message : "Api Error";
     }
