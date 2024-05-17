@@ -16,7 +16,7 @@ import {
   Divider,
   List,
 } from "@mui/material";
-import MainListItems from "../ListItems/MainListItems";
+import AdminListItems from "../AdminListItems/AdminListItems";
 import SearchBar from "../SearchBar/SearchBar";
 
 const drawerWidth: number = 350;
@@ -68,7 +68,7 @@ const MyAppBar = styled(MuiAppBar, {
   }),
 }));
 
-const AppBar: React.FC<IMyAppBarProps> = ({
+const AdminAppBar: React.FC<IMyAppBarProps> = ({
   parts,
   handlePartClick,
   categories,
@@ -77,6 +77,8 @@ const AppBar: React.FC<IMyAppBarProps> = ({
   myLaws,
   setMyLaws
 }) => {
+            
+
   const [open, setOpen] = useState(true);
   const [loggedUser, setLoggedUser] = useState<ILoggedUser>();
   const toggleDrawer = () => {
@@ -139,7 +141,7 @@ const AppBar: React.FC<IMyAppBarProps> = ({
         </Toolbar>
         <Divider />
         <List component="nav">
-          <MainListItems
+          <AdminListItems
             parts={parts}
             handlePartClick={handlePartClick}
             categories={categories}
@@ -153,4 +155,4 @@ const AppBar: React.FC<IMyAppBarProps> = ({
   );
 };
 
-export default AppBar;
+export default AdminAppBar;

@@ -74,7 +74,7 @@ const MainListItems: React.FC<IMainListItems> = ({
                 <ListItemIcon>
                   <AssignmentIcon />
                 </ListItemIcon>
-                <ListItemText primary={part.part_title} />
+                <ListItemText sx={{display: 'flex', flexWrap: 'wrap'}} primary={part.part_title} />
                 {toggleDrop[part.part_id] ? <ExpandLess /> : <ExpandMore />}
               </ListItemButton>
               <Collapse

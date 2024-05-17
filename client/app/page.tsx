@@ -1,19 +1,18 @@
-import About from "./components/About/About";
-import Contact from "./components/Contact/Contact";
+import Footer from "./components/Footer/Footer";
 import Navbar from "./components/Navbar/Navbar";
-import { Homepage } from "./homepage/page";
+import Homepage from "./homepage/page";
 import { Box } from "@mui/material";
 
 const Home = () => {
   return (
-      <Box sx={{ margin: 0 }}>
-        <Navbar />
-        <main>
-          <Homepage />
-          <About />
-          <Contact />
-        </main>
-      </Box>
+    <Box sx={{ margin: 0 }}>
+      <Navbar />
+      <main>
+        <Homepage />
+        <Footer />
+
+      </main>
+    </Box>
   );
 };
 

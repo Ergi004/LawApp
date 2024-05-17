@@ -6,24 +6,24 @@ const Api = {
     try {
       const response = await Axios.post("/parts/create", createPart);
       return response.data;
-    } catch (error: any) {
-      throw error.response ? error.response.data.message : "Api Error";
+    } catch (error) {
+      throw error
     }
   },
   getAllParts: async (allParts: IAllParts | any) => {
     try {
       const response = await Axios.get("/parts/getAll", allParts);
       return response.data.data;
-    } catch (error: any) {
-      throw error.response ? error.response.data.message : "Api Error";
+    } catch (error) {
+      throw error
     }
   },
   getPartBtId: async (part_id: number) => {
     try {
       const response = await Axios.get(`/parts/${part_id}`);
       return response;
-    } catch (error: any) {
-      throw error.response ? error.response.data.message : "Api Error";
+    } catch (error) {
+      throw error
     }
   },
   updatePart: async (part_id: number, updatePart: IUpdatePart) => {
@@ -33,16 +33,16 @@ const Api = {
         updatePart
       );
       return response;
-    } catch (error: any) {
-      throw error.response ? error.response.data.message : "Api Error";
+    } catch (error) {
+      throw error
     }
   },
   deletePart: async (part_id: number) => {
     try {
       const response = await Axios.delete(`/parts/delete/${part_id}`);
       return response;
-    } catch (error: any) {
-      throw error.response ? error.response.data.message : "Api Error";
+    } catch (error) {
+      throw error
     }
   },
 };

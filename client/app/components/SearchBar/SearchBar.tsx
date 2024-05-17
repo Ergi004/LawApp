@@ -58,9 +58,8 @@ const SearchBar: React.FC<ISearchBarProps> = ({ laws, set }) => {
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     const result = laws.filter((law: ICreateLaw) => {
-      return law.law_description.toLowerCase().includes(value.toLowerCase());
+      return (law.law_description.toLowerCase().includes(value.toLowerCase()) || law.law_name.toLowerCase().includes(value.toLowerCase()));
     });
-
     set(result);
   };
 

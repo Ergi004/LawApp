@@ -14,17 +14,17 @@ const Api = {
         createUser
       );
       return response.data;
-    } catch (error: any) {
-      throw error.response ? error.response.data.message : "Api Error";
+    } catch (error) {
+      throw error
     }
   },
   login: async (loginUser: ILoginUser) => {
     try {
-      // console.log(loginUser)
       const response = await Axios.post<ILoginUser>("/users/login", loginUser);
+      console.log(response.data)
       return response.data;
-    } catch (error: any) {
-      throw error.response ? error.response.data.message : "Api Error";
+    } catch (error) {
+      throw error
     }
   },
   updateUser: async (updateUser: IUpdateUser, user_id: number) => {
@@ -36,32 +36,32 @@ const Api = {
         }
       );
       return response.data;
-    } catch (error: any) {
-      throw error.response ? error.response.data.message : "Api Error";
+    } catch (error) {
+      throw error
     }
   },
   deleteUser: async (id: number) => {
     try {
       const response = await Axios.delete(`/users/delete/${id}`);
       return response.data;
-    } catch (error: any) {
-      throw error.response ? error.response.data.message : "Api Error";
+    } catch (error) {
+      throw error
     }
   },
   getAllUsers: async (allUsers: IAllUsers[] | any) => {
     try {
       const response = await Axios.get<IAllUsers[]>("/users/getAll", allUsers);
       return response.data;
-    } catch (error: any) {
-      throw error.response ? error.response.data.message : "Api Error";
+    } catch (error) {
+      throw error
     }
   },
   getUserById: async (user_id: number) => {
     try {
       const response = await Axios.get(`/users/${user_id}`);
       return response.data;
-    } catch (error: any) {
-      throw error.response ? error.response.data.message : "Api Error";
+    } catch (error) {
+      throw error
     }
   },
 };

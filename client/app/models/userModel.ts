@@ -11,6 +11,15 @@ export interface ICredentials {
   email: string
   password: string
 }
+
+export interface ILoggedUser {
+  id: number;
+  user_name: string;
+  last_name: string;
+  email: string;
+  password: string;
+}
+
 export interface ISignUp {
   id: number;
   user_name: string;

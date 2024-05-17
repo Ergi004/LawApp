@@ -3,35 +3,18 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import AssignmentIcon from "@mui/icons-material/Assignment";
-import { IAllParts } from "@/app/models/partModel";
 import { Box, List, Typography } from "@mui/material";
 import Collapse from "@mui/material/Collapse";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import { useState } from "react";
-import { IAllCategories } from "@/app/models/categoryModel";
 import SupervisedUserCircleIcon from "@mui/icons-material/SupervisedUserCircle";
 import { useRouter } from "next/navigation";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import GavelIcon from "@mui/icons-material/Gavel";
-import { GetLawByCategoryId, HandlePartClick, IGetAllLawsProp } from "@/app/models/functions";
+import { DropdownState, IMainListItems } from "@/app/models/functions";
+import { Part } from "@/app/models/partModel";
 
-export interface Part {
-  part_id: number;
-  part_number: string;
-  part_title: string;
-}
-
-interface IMainListItems {
-  parts: IAllParts[];
-  handlePartClick: HandlePartClick;
-  categories: IAllCategories[];
-  getLawByCategoryId?: GetLawByCategoryId;
-  getAllLaws: IGetAllLawsProp;
-}
-interface DropdownState {
-  [key: number]: boolean;
-}
 
 const MainListItems: React.FC<IMainListItems> = ({
   parts,
@@ -48,6 +31,7 @@ const MainListItems: React.FC<IMainListItems> = ({
     setOpen(!open);
   };
   const handleDropDown = (id: number) => {
+    setToggleDrop([])
     setToggleDrop((prevState) => ({ ...prevState, [id]: !prevState[id] }));
   };
 

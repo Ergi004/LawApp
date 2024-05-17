@@ -10,32 +10,32 @@ const Api = {
     try {
       const response = await Axios.post("/category/create", createCategory);
       return response.data;
-    } catch (error: any) {
-      throw error.response ? error.response.data.message : "Api Error";
+    } catch (error) {
+      throw error
     }
   },
   getAllCategories: async (allCategories: IAllCategories[] | any) => {
     try {
       const response = await Axios.get("/category/getAll", allCategories);
       return response.data.data;
-    } catch (error: any) {
-      throw error.response ? error.response.data.message : "Api Error";
+    } catch (error) {
+      throw error
     }
   },
   getCategoryById: async (category_id: number) => {
     try {
       const response = Axios.get(`/category/${category_id}`);
       return response;
-    } catch (error: any) {
-      throw error.response ? error.response.data.message : "Api Error";
+    } catch (error) {
+      throw error
     }
   },
   getCategoryByPartId: async (part_id: number) => {
     try {
       const response = await Axios.get(`/category/findBy/${part_id}`)
       return response
-    }catch (error: any){
-      throw error.response ? error.response.data.message : "Api Error";
+    }catch (error){
+      throw error
     }
   },
   updateCategory: async (
@@ -48,16 +48,16 @@ const Api = {
         updateCategory
       );
       return response
-    } catch (error: any) {
-      throw error.response ? error.response.data.message : "Api Error";
+    } catch (error) {
+      throw error
     }
   },
   deleteCategory: async (category_id: number) =>{ 
     try {
       const response = Axios.delete(`/category/delete/${category_id}`)
       return response
-    }catch(error: any) {
-      throw error.response ? error.response.data.message : "Api Error";
+    }catch(error) {
+      throw error
     }
   }
 };

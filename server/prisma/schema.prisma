@@ -37,8 +37,8 @@ model Part {
 
 model LawCategory {
   category_id     Int      @id @default(autoincrement())
-  category_number String   
-  category_title  String
+  category_number String   @db.Text
+  category_title  String   @db.Text
   part_id         Int
   Part            Part    @relation(fields: [part_id], references: [part_id])
   laws Law[]

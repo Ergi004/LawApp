@@ -7,7 +7,7 @@ export class Law {
   law_id: number
   @Column()
   law_name: string
-  @Column()
+  @Column({ type: 'text' })
   law_description: string
   @Column()
   written_date: string
