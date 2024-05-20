@@ -1,13 +1,20 @@
+'use client'
 import * as React from "react";
+import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
-import AuthGuard from "../components/AuthGuard/AuthGuard";
-import AdminMenuPage from '../components/AdminMenuPage/AdminMenuPage'
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import Grid from "@mui/material/Grid";
+import AdminAppBar from "../AdminAppBar/AdminAppBar";
+import AllUsers from "../AllUsers/AllUsers";
 
 const AdminMenu: React.FC = () => {
+
+  
   return (
-    <AuthGuard>
-      <Box sx={{ display: "flex" }}>
-        {/* <CssBaseline />
+      <Box sx={{ display: "flex", width: '100%' }}>
+        <CssBaseline />
         <AdminAppBar />
         <Box
           component="main"
@@ -24,7 +31,7 @@ const AdminMenu: React.FC = () => {
           <Toolbar />
           <Container maxWidth="xl" sx={{ mt: 5, mb: 5 }}>
             <Grid container spacing={1}>
-              <Grid item xs={12} md={12} lg={13} xl={11}>
+              <Grid item xs={12} md={12} lg={12} xl={12}>
                 <Box
                   sx={{
                     p: 2,
@@ -51,10 +58,8 @@ const AdminMenu: React.FC = () => {
               </Grid>
             </Grid>
           </Container>
-        </Box> */}
-        <AdminMenuPage />
+        </Box>
       </Box>
-    </AuthGuard>
   );
 };
 

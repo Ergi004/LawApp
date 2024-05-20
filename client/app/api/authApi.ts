@@ -3,11 +3,12 @@ import {
   IAllUsers,
   ICreateUser,
   ILoginUser,
+  IRegister,
   IUpdateUser,
 } from "../models/userModel";
 
 const Api = {
-  register: async (createUser: ICreateUser) => {
+  register: async (createUser: IRegister) => {
     try {
       const response = await Axios.post<ICreateUser>(
         "/users/register",

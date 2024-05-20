@@ -1,3 +1,4 @@
+"use client";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import LogoutModal from "../LogoutModal/LogoutModal";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -5,7 +6,7 @@ import { useEffect } from "react";
 import { ILoggedUser } from "@/app/models/userModel";
 import MuiDrawer from "@mui/material/Drawer";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import { IMainListItems, IMyAppBarProps } from "@/app/models/functions";
+import { HandlePartClick, IMyAppBarProps } from "@/app/models/functions";
 import { styled } from "@mui/material/styles";
 import { useState } from "react";
 import {
@@ -18,6 +19,12 @@ import {
 } from "@mui/material";
 import AdminListItems from "../AdminListItems/AdminListItems";
 import SearchBar from "../SearchBar/SearchBar";
+import { IAllCategories, ICreateCategory } from "@/app/models/categoryModel";
+import { IGetAllLaws } from "@/app/models/lawModel";
+import { IAllParts, Part } from "@/app/models/partModel";
+import LawApi from "../../api/lawApi";
+import CategoryApi from "../../api/categoryApi";
+import Api from "@/app/api/partApi";
 
 const drawerWidth: number = 350;
 interface AppBarProps extends MuiAppBarProps {
@@ -69,18 +76,27 @@ const MyAppBar = styled(MuiAppBar, {
 }));
 
 const AdminAppBar: React.FC<IMyAppBarProps> = ({
-  parts,
-  handlePartClick,
-  categories,
   getLawByCategoryId,
   getAllLaws,
   myLaws,
   setMyLaws
 }) => {
-            
-
   const [open, setOpen] = useState(true);
   const [loggedUser, setLoggedUser] = useState<ILoggedUser>();
+  const [categories, setCategories] = useState<IAllCategories[]>([]);
+  const [parts, setParts] = useState<IAllParts[]>([]);
+
+  const getAllParts = async () => {
+    const response = await Api.getAllParts(parts);
+    setParts(response);
+  };
+  const handlePartClick: HandlePartClick = async (part: Part) => {
+    const response = await CategoryApi.getCategoryByPartId(
+      part.part_id as number
+    );
+    setCategories(response.data.data);
+  };
+
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -92,6 +108,7 @@ const AdminAppBar: React.FC<IMyAppBarProps> = ({
 
   useEffect(() => {
     getLoggedUser();
+    getAllParts();
   }, []);
   return (
     <Box>
@@ -122,7 +139,7 @@ const AdminAppBar: React.FC<IMyAppBarProps> = ({
           >
             Welcome {loggedUser?.user_name}
           </Typography>
-          <SearchBar laws={myLaws} set={setMyLaws} />
+          <SearchBar myLaws={myLaws} setMyLaws={setMyLaws} />
           <LogoutModal />
         </Toolbar>
       </MyAppBar>
@@ -142,11 +159,11 @@ const AdminAppBar: React.FC<IMyAppBarProps> = ({
         <Divider />
         <List component="nav">
           <AdminListItems
-            parts={parts}
             handlePartClick={handlePartClick}
             categories={categories}
             getLawByCategoryId={getLawByCategoryId}
             getAllLaws={getAllLaws}
+            parts={parts}
           />
           <Divider sx={{ my: 1 }} />
         </List>

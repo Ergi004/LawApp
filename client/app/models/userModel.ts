@@ -29,6 +29,14 @@ export interface ISignUp {
   role: string;
   token?: any;
 }
+ export interface IRegister {
+  id: number;
+  user_name: string;
+  last_name: string;
+  email: string;
+  password: string
+  role?: string
+ }
 
 export interface IUpdateUser extends ICreateUser {}
 

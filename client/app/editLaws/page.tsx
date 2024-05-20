@@ -53,7 +53,6 @@ const EditLaws: React.FC = () => {
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
         <AdminAppBar
-          parts={parts}
           handlePartClick={handlePartClick}
           categories={categories}
           getLawByCategoryId={getLawByCategoryId}

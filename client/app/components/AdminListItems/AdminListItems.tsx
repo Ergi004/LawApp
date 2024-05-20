@@ -12,7 +12,7 @@ import SupervisedUserCircleIcon from "@mui/icons-material/SupervisedUserCircle";
 import { useRouter } from "next/navigation";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import GavelIcon from "@mui/icons-material/Gavel";
-import { DropdownState, IMainListItems } from "@/app/models/functions";
+import { DropdownState, HandlePartClick, IMainListItems } from "@/app/models/functions";
 import { Part } from "@/app/models/partModel";
 
 
@@ -21,7 +21,6 @@ const MainListItems: React.FC<IMainListItems> = ({
   handlePartClick,
   categories,
   getLawByCategoryId,
-  getAllLaws,
 }) => {
   const [toggleDrop, setToggleDrop] = useState<DropdownState>({});
   const [open, setOpen] = useState(true);
@@ -31,7 +30,7 @@ const MainListItems: React.FC<IMainListItems> = ({
     setOpen(!open);
   };
   const handleDropDown = (id: number) => {
-    setToggleDrop([])
+    setToggleDrop([]);
     setToggleDrop((prevState) => ({ ...prevState, [id]: !prevState[id] }));
   };
 
@@ -51,7 +50,6 @@ const MainListItems: React.FC<IMainListItems> = ({
       <ListItemButton
         onClick={() => {
           gotToAdminDashboard();
-          getAllLaws();
         }}
       >
         <ListItemIcon>

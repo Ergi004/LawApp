@@ -44,23 +44,27 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
 }));
 
 interface ISearchBarProps {
-  laws: IGetAllLaws[] | any;
-  set: any;
+  setMyLaws: IGetAllLaws[] | any;
+  myLaws: any;
 }
 interface IName {
   name: string;
-  value?: any
+  value?: any;
 }
 
-const SearchBar: React.FC<ISearchBarProps> = ({ laws, set }) => {
+const SearchBar: React.FC<ISearchBarProps> = ({ myLaws, setMyLaws }) => {
   const [name, setName] = useState<IName>({ name: "" });
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(myLaws);
     const value = e.target.value;
-    const result = laws.filter((law: ICreateLaw) => {
-      return (law.law_description.toLowerCase().includes(value.toLowerCase()) || law.law_name.toLowerCase().includes(value.toLowerCase()));
+    const result = myLaws.filter((law: ICreateLaw) => {
+      return (
+        law.law_name.toLowerCase().includes(value.toLowerCase()) ||
+        law.law_description.toLowerCase().includes(value.toLowerCase())
+      );
     });
-    set(result);
+    setMyLaws(result);
   };
 
   return (

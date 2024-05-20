@@ -15,17 +15,16 @@ export interface GetLawByCategoryId {
 
 export interface IMainListItems {
   parts: IAllParts[];
-  handlePartClick: HandlePartClick;
+  handlePartClick?: HandlePartClick;
   categories: IAllCategories[];
   getLawByCategoryId?: GetLawByCategoryId;
   getAllLaws: IGetAllLawsProp;
 }
 export interface IMyAppBarProps {
-  parts: IAllParts[];
-  handlePartClick: HandlePartClick;
-  categories: IAllCategories[];
+  handlePartClick?: HandlePartClick;
+  categories?: IAllCategories[];
   getLawByCategoryId?: GetLawByCategoryId;
-  getAllLaws: IGetAllLawsProp;
+  getAllLaws?: IGetAllLawsProp | any;
   myLaws?: IGetAllLaws[];
   setMyLaws?: any
 }

@@ -21,7 +21,7 @@ import {
 
 interface IMainListItems {
   parts: IAllParts[];
-  handlePartClick: HandlePartClick;
+  handlePartClick?: HandlePartClick;
   categories: IAllCategories[];
   getLawByCategoryId?: GetLawByCategoryId;
   getAllLaws: IGetAllLawsProp;
@@ -74,7 +74,10 @@ const MainListItems: React.FC<IMainListItems> = ({
                 <ListItemIcon>
                   <AssignmentIcon />
                 </ListItemIcon>
-                <ListItemText sx={{display: 'flex', flexWrap: 'wrap'}} primary={part.part_title} />
+                <ListItemText
+                  sx={{ display: "flex", flexWrap: "wrap" }}
+                  primary={part.part_title}
+                />
                 {toggleDrop[part.part_id] ? <ExpandLess /> : <ExpandMore />}
               </ListItemButton>
               <Collapse
@@ -82,7 +85,7 @@ const MainListItems: React.FC<IMainListItems> = ({
                 timeout={500}
                 unmountOnExit
               >
-                {categories.map?.((category) => (
+                {categories.map((category) => (
                   <List
                     key={category.category_id}
                     onClick={() => {

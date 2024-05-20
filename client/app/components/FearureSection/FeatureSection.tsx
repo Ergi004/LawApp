@@ -1,43 +1,23 @@
-'use client'
+"use client";
 import { Box, Typography, Button, Grid } from "@mui/material";
 import React from "react";
 import { makeStyles } from "@mui/styles";
 
-
 const useStyles = makeStyles({
-  hero: {
-    background: "#f5f5f5", // Light gray background
-    height: "600px",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    textAlign: "center",
-    padding: "20px",
-  },
+ 
   features: {
-    marginTop: "50px",
+    background: "#FDFFC2",
     textAlign: "center",
   },
   featureItem: {
     padding: "20px",
   },
-  additionalContent: {
-    marginTop: "50px",
-    textAlign: "center",
-    padding: "20px",
-  },
-  footer: {
-    marginTop: "50px",
-    padding: "20px",
-    background: "#f5f5f5",
-    textAlign: "center",
-  },
+  
 });
 
-
 const FeatureSection = () => {
-  const classes = useStyles()
-  
+  const classes = useStyles();
+
   return (
     <Box className={classes.features}>
       <Box>

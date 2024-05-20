@@ -13,12 +13,12 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { ISignUp } from "../models/userModel";
+import { IRegister, ISignUp } from "../models/userModel";
 import Api from "../api/authApi";
 import { useRouter } from "next/navigation";
 
 const SignUp: React.FC = () => {
-  const [createUser, setCreateUser] = useState<ISignUp>({
+  const [createUser, setCreateUser] = useState<IRegister>({
     user_name: "",
     last_name: "",
     email: "",

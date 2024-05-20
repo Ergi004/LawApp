@@ -6,31 +6,15 @@ import { useRouter } from "next/navigation";
 
 const useStyles = makeStyles({
   hero: {
-    background: "#f5f5f5", // Light gray background
-    height: "600px",
+    background: "url('https://img.freepik.com/free-photo/still-life-with-scales-justice_23-2149776040.jpg?size=626&ext=jpg&ga=GA1.1.44546679.1716076800&semt=ais_user') no-repeat center center",
+    backgroundSize: "cover",
+    height: "800px",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     textAlign: "center",
     padding: "20px",
-  },
-  features: {
-    marginTop: "50px",
-    textAlign: "center",
-  },
-  featureItem: {
-    padding: "20px",
-  },
-  additionalContent: {
-    marginTop: "50px",
-    textAlign: "center",
-    padding: "20px",
-  },
-  footer: {
-    marginTop: "50px",
-    padding: "20px",
-    background: "#f5f5f5",
-    textAlign: "center",
+    color: "#fff", // Ensures the text is readable against the background
   },
 });
 
