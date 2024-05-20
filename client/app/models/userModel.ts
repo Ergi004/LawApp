@@ -30,7 +30,6 @@ export interface ISignUp {
   token?: any;
 }
  export interface IRegister {
-  id: number;
   user_name: string;
   last_name: string;
   email: string;

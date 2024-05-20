@@ -81,7 +81,7 @@ const MainListItems: React.FC<IMainListItems> = ({
                       overflow: "hidden",
                       textOverflow: "ellipsis",
                       whiteSpace: "wrap",
-                      maxWidth: "300px", // Adjust the width as needed
+                      maxWidth: "300px",
                     }}
                   />
                 </Tooltip>
@@ -109,7 +109,7 @@ const MainListItems: React.FC<IMainListItems> = ({
                             overflow: "hidden",
                             textOverflow: "ellipsis",
                             whiteSpace: "wrap",
-                            maxWidth: "300px", // Adjust the width as needed
+                            maxWidth: "300px", 
                           }}
                         />
                       </Tooltip>
