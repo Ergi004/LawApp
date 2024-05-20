@@ -4,7 +4,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import { IAllParts, Part } from "@/app/models/partModel";
-import { Box, List } from "@mui/material";
+import { Box, List, Tooltip } from "@mui/material";
 import Collapse from "@mui/material/Collapse";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
@@ -74,10 +74,17 @@ const MainListItems: React.FC<IMainListItems> = ({
                 <ListItemIcon>
                   <AssignmentIcon />
                 </ListItemIcon>
-                <ListItemText
-                  sx={{ display: "flex", flexWrap: "wrap" }}
-                  primary={part.part_title}
-                />
+                <Tooltip title={part.part_title} arrow>
+                  <ListItemText
+                    primary={part.part_title}
+                    sx={{
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      whiteSpace: "wrap",
+                      maxWidth: "300px", // Adjust the width as needed
+                    }}
+                  />
+                </Tooltip>
                 {toggleDrop[part.part_id] ? <ExpandLess /> : <ExpandMore />}
               </ListItemButton>
               <Collapse
@@ -95,7 +102,17 @@ const MainListItems: React.FC<IMainListItems> = ({
                     disablePadding
                   >
                     <ListItemButton sx={{ pl: 4 }}>
-                      <ListItemText primary={category.category_title} />
+                      <Tooltip title={category.category_title} arrow>
+                        <ListItemText
+                          primary={category.category_title}
+                          sx={{
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            whiteSpace: "wrap",
+                            maxWidth: "300px", // Adjust the width as needed
+                          }}
+                        />
+                      </Tooltip>
                     </ListItemButton>
                   </List>
                 ))}
