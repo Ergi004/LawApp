@@ -1,0 +1,5 @@
+import { CreateUserDto } from "./create-user.dto";
+declare const LoginUserDto_base: import("@nestjs/mapped-types").MappedType<Partial<CreateUserDto>>;
+export declare class LoginUserDto extends LoginUserDto_base {
+}
+export {};
