@@ -19,6 +19,8 @@ export interface Law {
 
 export interface AllLawsProps {
   laws: Law[]
+  myLaws: Law[]
+  setLaws: any;
   parts?: IAllParts[]
   allCategories?: IAllCategories[]
 }

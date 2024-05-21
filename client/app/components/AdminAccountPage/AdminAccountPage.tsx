@@ -54,8 +54,6 @@ const Dashboard: React.FC = () => {
       <AdminAppBar
         getLawByCategoryId={getLawByCategoryId}
         getAllLaws={getAllLaws}
-        myLaws={myLaws}
-        setMyLaws={setMyLaws}
       />
       <Box
         component="main"
@@ -71,7 +69,7 @@ const Dashboard: React.FC = () => {
       >
         <Toolbar />
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-          <AllLaws laws={laws} parts={parts} allCategories={allCategories} />
+          <AllLaws laws={laws} parts={parts} allCategories={allCategories} myLaws={myLaws} setLaws={setLaws}/>
         </Container>
       </Box>
     </Box>

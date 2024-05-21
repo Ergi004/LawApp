@@ -24,9 +24,7 @@ export interface IMyAppBarProps {
   handlePartClick?: HandlePartClick;
   categories?: IAllCategories[];
   getLawByCategoryId?: GetLawByCategoryId;
-  getAllLaws?: IGetAllLawsProp | any;
-  myLaws?: IGetAllLaws[];
-  setMyLaws?: any
+  getAllLaws: IGetAllLawsProp | any;
 }
 export interface DropdownState {
   [key: number]: boolean;

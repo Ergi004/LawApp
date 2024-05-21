@@ -1,8 +1,9 @@
 import { Grid, Paper, Box, Typography, typographyClasses } from "@mui/material";
 import React from "react";
 import { AllLawsProps, Law } from "@/app/models/lawModel";
+import SearchBar from "../SearchBar/SearchBar";
 
-const AllLaws: React.FC<AllLawsProps> = ({ laws }) => {
+const AllLaws: React.FC<AllLawsProps> = ({ laws, myLaws, setLaws }) => {
   return (
     <Grid container spacing={3}>
       <Grid item xs={12} md={12} lg={13}>
@@ -12,8 +13,11 @@ const AllLaws: React.FC<AllLawsProps> = ({ laws }) => {
             display: "flex",
             flexDirection: "column",
             minHeight: 240,
+            alignItems: 'center',
+            boxShadow: 10
           }}
         >
+          <SearchBar myLaws={myLaws} setLaws={setLaws} />
           <Box
             sx={{
               margin: "30px auto",

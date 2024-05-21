@@ -19,6 +19,7 @@ import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const drawerWidth = 240;
 const navItems = ["Home", "About", "Contact"];
@@ -65,11 +66,14 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function Navbar(props: any) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
+  const router = useRouter();
+  const goToLogin = () => {
+    router.push("/login");
+  };
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
-
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
       <Typography variant="h6" sx={{ my: 2 }}>
@@ -78,6 +82,14 @@ export default function Navbar(props: any) {
 
       <Divider />
       <List>
+        <ListItem>
+          <ListItemButton
+            onClick={() => goToLogin()}
+            sx={{ textAlign: "center" }}
+          >
+            <ListItemText primary="Login" />
+          </ListItemButton>
+        </ListItem>
         {navItems.map((item) => (
           <ListItem key={item} disablePadding>
             <ListItemButton sx={{ textAlign: "center" }}>
@@ -130,9 +142,10 @@ export default function Navbar(props: any) {
               </Button>
             ))}
             <Link href="/login">
-              <Button sx={{margin: '10px'}} variant="contained">Login</Button>
+              <Button sx={{ margin: "10px" }} variant="contained">
+                Login
+              </Button>
             </Link>
-            
           </Box>
         </Toolbar>
       </AppBar>

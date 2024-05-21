@@ -78,8 +78,6 @@ const MyAppBar = styled(MuiAppBar, {
 const AdminAppBar: React.FC<IMyAppBarProps> = ({
   getLawByCategoryId,
   getAllLaws,
-  myLaws,
-  setMyLaws
 }) => {
   const [open, setOpen] = useState(true);
   const [loggedUser, setLoggedUser] = useState<ILoggedUser>();
@@ -139,7 +137,7 @@ const AdminAppBar: React.FC<IMyAppBarProps> = ({
           >
             Welcome {loggedUser?.user_name}
           </Typography>
-          <SearchBar myLaws={myLaws} setMyLaws={setMyLaws} />
+          
           <LogoutModal />
         </Toolbar>
       </MyAppBar>

@@ -10,9 +10,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     padding: theme.spacing(1, 1, 1, 0),
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create("width"),
-    width: "100%",
+    maxWidth: "100%",
     [theme.breakpoints.up("md")]: {
-      width: "20ch",
+      width: "37ch",
     },
   },
 }));
@@ -24,8 +24,6 @@ const Search = styled("div")(({ theme }) => ({
   "&:hover": {
     backgroundColor: alpha(theme.palette.common.white, 0.25),
   },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
   width: "100%",
   [theme.breakpoints.up("sm")]: {
     marginLeft: theme.spacing(3),
@@ -44,7 +42,7 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
 }));
 
 interface ISearchBarProps {
-  setMyLaws: IGetAllLaws[] | any;
+  setLaws: IGetAllLaws[] | any;
   myLaws: any;
 }
 interface IName {
@@ -52,7 +50,7 @@ interface IName {
   value?: any;
 }
 
-const SearchBar: React.FC<ISearchBarProps> = ({ myLaws, setMyLaws }) => {
+const SearchBar: React.FC<ISearchBarProps> = ({ myLaws, setLaws }) => {
   const [name, setName] = useState<IName>({ name: "" });
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -64,17 +62,25 @@ const SearchBar: React.FC<ISearchBarProps> = ({ myLaws, setMyLaws }) => {
         law.law_description.toLowerCase().includes(value.toLowerCase())
       );
     });
-    setMyLaws(result);
+    setLaws(result);
   };
 
   return (
-    <Search>
+    <Search
+      sx={{
+        border: "1px #DDDDDD solid",
+        backgroundColor: "white",
+        margin: "30px",
+        maxWidth: "400px",
+      }}
+    >
       <SearchIconWrapper>
         <SearchIcon />
       </SearchIconWrapper>
       <StyledInputBase
         placeholder="Search…"
         inputProps={{ "aria-label": "search" }}
+        sx={{height: '60px'}}
         value={name.value}
         onChange={handleSearch}
       />
