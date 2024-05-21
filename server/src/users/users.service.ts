@@ -32,7 +32,9 @@ export class UsersService {
   }
 
   async login(loginCredentials: LoginUserDto) {
+    console.log('asfasdasdasd')
     const { email, password } = loginCredentials;
+    console.log(loginCredentials)
     const existingUser = await this.usersRepository.findOneBy({ email });
 
     if (!existingUser) {

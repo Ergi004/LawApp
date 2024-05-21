@@ -3,7 +3,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import AssignmentIcon from "@mui/icons-material/Assignment";
-import { Box, List, Typography } from "@mui/material";
+import { Box, List, Tooltip, Typography } from "@mui/material";
 import Collapse from "@mui/material/Collapse";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
@@ -90,9 +90,17 @@ const MainListItems: React.FC<IMainListItems> = ({
                 <ListItemIcon>
                   <AssignmentIcon />
                 </ListItemIcon>
-                <ListItemText primary={(part.part_id, part.part_title)} />
-                <Typography variant="h6">ID:{part.part_id}</Typography>
-
+                <Tooltip title={part.part_title} arrow>
+                  <ListItemText
+                    primary={part.part_title}
+                    sx={{
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      whiteSpace: "wrap",
+                      maxWidth: "300px",
+                    }}
+                  />
+                </Tooltip>
                 {toggleDrop[part.part_id] ? <ExpandLess /> : <ExpandMore />}
               </ListItemButton>
               <Collapse
@@ -109,11 +117,18 @@ const MainListItems: React.FC<IMainListItems> = ({
                     component="div"
                     disablePadding
                   >
-                    <ListItemButton sx={{ pl: 4 }}>
-                      <ListItemText primary={category.category_title} />
-                      <Typography variant="h6">
-                        ID:{category.category_id}
-                      </Typography>
+                    <ListItemButton sx={{ pl: 4, boxShadow: 1 }}>
+                      <Tooltip title={category.category_title} arrow>
+                        <ListItemText
+                          primary={category.category_title}
+                          sx={{
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            whiteSpace: "wrap",
+                            maxWidth: "300px", 
+                          }}
+                        />
+                      </Tooltip>
                     </ListItemButton>
                   </List>
                 ))}
