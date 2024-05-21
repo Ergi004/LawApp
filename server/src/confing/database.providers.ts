@@ -1,5 +1,5 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
-import { LawCategory } from 'lawCategory/entities/category.entity';
+import { LawCategory } from 'src/lawCategory/entities/category.entity';
 import { Law } from 'src/laws/entities/law.entity';
 import { Part } from 'src/parts/entities/part.entity';
 import { User } from 'src/users/entities/user.entity';
