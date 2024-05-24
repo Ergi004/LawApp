@@ -8,8 +8,8 @@ import styles from "./allLaws.module.css"; // Import the CSS module
 const AllLaws: React.FC<AllLawsProps> = ({ laws, myLaws, setLaws }) => {
   return (
     <Grid container spacing={3}>
-      <Grid item xs={12} md={12} lg={13}>
-        <Box sx={{ alignItems: "center", margin: "0 0 30px 0" }}>
+      <Grid sx={{padding: '10px 0px 0 30px'}} xs={12} md={12} lg={13}>
+        <Box sx={{ alignItems: "center", }}>
           <SearchBar myLaws={myLaws} setLaws={setLaws} />
         </Box>
         <Paper

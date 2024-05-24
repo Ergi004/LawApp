@@ -1,5 +1,9 @@
 @media (max-width: 650px) {
+  .searchImg {
+    width: 17px
+  }
   .searchText {
     height: 37px;
+    font-size: 12px;
   }
 }
