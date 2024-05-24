@@ -1,0 +1,59 @@
+.appBar {
+  background-color: #f1f1f1;
+  color: black;
+  height: 80px;
+}
+
+.loginBtnContainer {
+  display: flex;
+}
+
+.menuBtn {
+  display: none;
+}
+
+.navLogo {
+  max-width: 100%;
+  height: 80px;
+  margin: 15px; /* Adjust margin for better spacing */
+}
+
+.navButton {
+  color: black;
+  font-size: 14px; /* Adjust font size */
+}
+
+.navDrawerButton {
+  text-align: center;
+  font-size: 14px; /* Adjust font size */
+}
+
+@media (max-width: 650px) {
+  .navLogo {
+    height: 50px;
+    margin: 0;
+  }
+
+  .navButton {
+    font-size: 12px; /* Adjust font size for smaller screens */
+  }
+
+  .navDrawerButton {
+    font-size: 12px; /* Adjust font size for smaller screens */
+  }
+  .appBar {
+    height: 45px;
+  }
+  .menuBtn {
+    display: block;
+    position: absolute;
+    left: -20px;
+    top: 4px;
+  }
+  .menuIcon {
+    width: 20px;
+  }
+  .loginBtnContainer {
+    display: none;
+  }
+}

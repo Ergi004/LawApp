@@ -1,0 +1,103 @@
+/* allLaws.module.css */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.imageListItem {
+  width: 70px;
+  height: 30px;
+  margin: 10px auto;
+}
+
+.header {
+  font-weight: bold;
+  font-size: 25px;
+  padding: 10px;
+  text-align: center;
+}
+
+.subheader {
+  font-size: 15px;
+  margin: 0 auto;
+  padding: 0 10px;
+  max-width: 800px;
+  text-align: center;
+}
+
+.content {
+  font-weight: bold;
+  font-size: 17px;
+  margin: 10px auto;
+  max-width: 900px;
+  text-align: center;
+}
+
+.decision {
+  margin: 0 auto;
+  font-size: 17px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.lawBox {
+  margin: 10px auto;
+  padding: 40px;
+  max-width: 750px;
+}
+
+.lawName {
+  text-align: center;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.lawDescription {
+  font-size: 15px;
+  text-align: center;
+}
+
+/* Responsive Styles */
+@media (max-width: 650px) {
+  .paper {
+    margin-left: 50px;
+  }
+  .header {
+    font-size: 15px;
+    padding: 5px;
+  }
+
+  .subheader {
+    font-size: 11px;
+    padding: 0px 1px
+  }
+
+  .content {
+    font-size: 11px;
+    margin: 10px 20px;
+  }
+
+  .decision {
+    font-size: 11px;
+  }
+
+  .lawBox {
+    padding: 7px;
+  }
+
+  .lawName {
+    font-size: 13px;
+  }
+
+  .lawDescription {
+    font-size: 11px;
+  }
+  .imageListItem {
+    width: 40px;
+    margin: 5px auto;
+  }
+  
+}

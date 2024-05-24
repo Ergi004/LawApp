@@ -1,0 +1,14 @@
+/* adminListItems.module.css */
+
+.listItemText {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+}
+
+/* Responsive Styles */
+@media (max-width: 650px) {
+  .listItemText {
+    max-width: 150px;
+  }
+}

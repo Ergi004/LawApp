@@ -38,7 +38,6 @@ export class UsersController {
 
   @Post('login')
   async login(@Body() loginUser: LoginUserDto, @Res() res: Response) {
-    console.log(loginUser, "oikkk")
     try {
       const response = await this.usersService.login(loginUser);
       const token = await this.usersService.generateToken(response);

@@ -13,12 +13,20 @@ import CategoryApi from "../../api/categoryApi";
 import PartApi from "../../api/partApi";
 import AllLaws from "../AllLaws/AllLaws";
 import AdminAppBar from "../AdminAppBar/AdminAppBar";
+import { HandlePartClick } from "@/app/models/functions";
 
 const Dashboard: React.FC = () => {
   const [laws, setLaws] = useState<IGetAllLaws[]>([]);
   const [myLaws, setMyLaws] = useState<IGetAllLaws[]>([]);
   const [parts, setParts] = useState<IAllParts[]>([]);
+  const [categories, setCategories] = useState<IAllCategories[]>([]);
   const [allCategories, setAllCategories] = useState<IAllCategories[]>([]);
+  const handlePartClick: HandlePartClick = async (part: Part) => {
+    const response = await CategoryApi.getCategoryByPartId(
+      part.part_id as number
+    );
+    setCategories(response.data.data);
+  };
 
   const getAllParts = async () => {
     const response = await PartApi.getAllParts(parts);
@@ -27,7 +35,7 @@ const Dashboard: React.FC = () => {
 
   const getAllCategories = async () => {
     const response = await CategoryApi.getAllCategories(allCategories);
-    setAllCategories(response);
+    setCategories(response);
   };
 
   const getAllLaws = async () => {
@@ -45,7 +53,6 @@ const Dashboard: React.FC = () => {
     getAllLaws();
     getAllCategories();
     getAllParts();
-    console.log(allCategories);
   }, []);
 
   return (
@@ -54,6 +61,8 @@ const Dashboard: React.FC = () => {
       <AdminAppBar
         getLawByCategoryId={getLawByCategoryId}
         getAllLaws={getAllLaws}
+        handlePartClick={handlePartClick}
+        categories={categories}
       />
       <Box
         component="main"
@@ -69,7 +78,13 @@ const Dashboard: React.FC = () => {
       >
         <Toolbar />
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-          <AllLaws laws={laws} parts={parts} allCategories={allCategories} myLaws={myLaws} setLaws={setLaws}/>
+          <AllLaws
+            laws={laws}
+            parts={parts}
+            allCategories={allCategories}
+            myLaws={myLaws}
+            setLaws={setLaws}
+          />
         </Container>
       </Box>
     </Box>

@@ -23,6 +23,7 @@ export interface AllLawsProps {
   setLaws: any;
   parts?: IAllParts[]
   allCategories?: IAllCategories[]
+  categories?: IAllCategories[]
 }
 export interface IGetAllLaws extends ICreateLaw {}
 export interface IUpdateLaw extends ICreateLaw {}

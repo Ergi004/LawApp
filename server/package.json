@@ -24,9 +24,6 @@
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log"
   },
-  "engines": {
-    "node": "20"
-  },
   "main": "dist/index.js",
   "dependencies": {
     "@nestjs/common": "^10.0.0",

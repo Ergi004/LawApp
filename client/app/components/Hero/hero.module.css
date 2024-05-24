@@ -1,0 +1,51 @@
+.img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  opacity: 0.5; /* Adjust the opacity if needed */
+}
+
+.hero {
+  background-color: #f1f1f1;
+  height: 93vh; /* Adjusted to use full viewport height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden; /* Ensure content doesn't overflow */
+}
+
+.text-container {
+  position: relative;
+  z-index: 1;
+  padding: 20px; /* Add padding for better spacing on mobile */
+}
+
+@media (max-width: 650px) {
+  .text-container {
+    padding: 10px; /* Adjust padding for smaller screens */
+  }
+
+  .hero {
+    margin-top: 45px;
+    height: 550px; /* Adjust height for smaller screens */
+    padding: 20px 0; /* Add padding for better spacing */
+  }
+
+  .img {
+    opacity: 0.3; /* Increase transparency for better text visibility */
+  }
+
+  .text-container h1 {
+    font-size: 24px; /* Adjust font size for smaller screens */
+  }
+
+  .text-container p {
+    font-size: 14px; /* Adjust font size for smaller screens */
+  }
+}

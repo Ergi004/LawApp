@@ -1,56 +1,105 @@
 "use client";
-import { Box, Typography, Button, Grid } from "@mui/material";
+import { Box, Typography, Container } from "@mui/material";
 import React from "react";
-import { makeStyles } from "@mui/styles";
-
-const useStyles = makeStyles({
- 
-  features: {
-    background: "#FDFFC2",
-    textAlign: "center",
-  },
-  featureItem: {
-    padding: "20px",
-  },
-  
-});
+import {
+  ThemeProvider,
+  createTheme,
+  responsiveFontSizes,
+} from "@mui/material/styles";
+import styles from "./featureSection.module.css";
 
 const FeatureSection = () => {
-  const classes = useStyles();
+  let theme = createTheme();
+  theme = responsiveFontSizes(theme);
 
   return (
-    <Box className={classes.features}>
-      <Box>
-        <Grid container spacing={4}>
-          <Grid item xs={12} md={4} className={classes.featureItem}>
-            <Typography variant="h6" component="h3">
-              All-in-one finances
-            </Typography>
-            <Typography variant="body1">
-              We bring all of your money to one place, from balances and bills
-              to credit score and more.
-            </Typography>
-          </Grid>
-          <Grid item xs={12} md={4} className={classes.featureItem}>
-            <Typography variant="h6" component="h3">
-              Budgets made simple
-            </Typography>
-            <Typography variant="body1">
-              Easily create budgets, and see our suggestions based on your
-              spending.
-            </Typography>
-          </Grid>
-          <Grid item xs={12} md={4} className={classes.featureItem}>
-            <Typography variant="h6" component="h3">
-              Unlimited credit scores
-            </Typography>
-            <Typography variant="body1">
-              Check your free credit score as many times as you like, and get
-              tips to help improve it.
-            </Typography>
-          </Grid>
-        </Grid>
+    <Box>
+      {/* <ThemeProvider theme={theme}> */}
+      <Box
+        sx={{
+          alignItems: "center",
+          display: "flex",
+          flexDirection: "column",
+          justifyItems: "center",
+          padding: 3,
+          backgroundColor: "#222831",
+          color: "#F6F5F2",
+        }}
+      >
+        <Container>
+          <Box sx={{ display: "flex", flexWrap: "wrap" }}>
+            <Box className={styles.headerContainer}>
+              <Typography component="h2" className={styles.header}>
+                WHAT WE OFFER
+              </Typography>
+            </Box>
+            <Box className={styles.contentContainer}>
+              <Box sx={{ maxWidth: "400px", display: "flex" }} className={styles.featureContainer}>
+                <Box sx={{ margin: "40px 0 0 0" }}>
+                  <img className={styles.img} src="/sun-logo.png" />
+                </Box>
+                <Box sx={{ margin: "10px 20px 0" }}>
+                  <Typography
+                    variant="h6"
+                    component="h3"
+                    className={styles.featuresTitles}
+                  >
+                    Lorem Ipsum
+                  </Typography>
+                  <Typography className={styles.featuresText}>
+                    Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+                    Lorem Ipsum Lorem Ipsum Lorem Ipsum
+                  </Typography>
+                </Box>
+              </Box>
+              <Box
+                sx={{
+                  maxWidth: "400px",
+                  display: "flex",
+                  
+                }}
+                className={styles.featureContainer}
+              >
+                <Box sx={{ margin: "45px 0 0 0" }}>
+                  <img className={styles.img} src="/sun-logo.png" />
+                </Box>
+                <Box sx={{ margin: "20px 20px 0 " }}>
+                  <Typography
+                    variant="h6"
+                    component="h3"
+                    className={styles.featuresTitles}
+                  >
+                    Lorem Ipsum
+                  </Typography>
+                  <Typography className={styles.featuresText}>
+                    Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+                    Lorem Ipsum Lorem Ipsum Lorem Ipsum
+                  </Typography>
+                </Box>
+              </Box>
+              <Box sx={{ maxWidth: "400px", display: "flex",  }} className={styles.featureContainer}>
+                <Box sx={{ margin: "45px 0 0 0" }}>
+                  <img className={styles.img} src="/sun-logo.png" />
+                </Box>
+                <Box sx={{ margin: "20px 20px 0" }}>
+                  <Typography
+                    variant="h6"
+                    component="h3"
+                    className={styles.featuresTitles}
+                  >
+                    Lorem Ipsum
+                  </Typography>
+                  <Typography className={styles.featuresText}>
+                    Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+                    Lorem Ipsum Lorem Ipsum Lorem Ipsum
+                  </Typography>
+                </Box>
+              </Box>
+            </Box>
+          </Box>
+        </Container>
       </Box>
+      {/* </ThemeProvider> */}
     </Box>
   );
 };

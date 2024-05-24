@@ -12,9 +12,12 @@ import SupervisedUserCircleIcon from "@mui/icons-material/SupervisedUserCircle";
 import { useRouter } from "next/navigation";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import GavelIcon from "@mui/icons-material/Gavel";
-import { DropdownState, HandlePartClick, IMainListItems } from "@/app/models/functions";
+import {
+  DropdownState,
+  HandlePartClick,
+  IMainListItems,
+} from "@/app/models/functions";
 import { Part } from "@/app/models/partModel";
-
 
 const MainListItems: React.FC<IMainListItems> = ({
   parts,
@@ -23,14 +26,16 @@ const MainListItems: React.FC<IMainListItems> = ({
   getLawByCategoryId,
 }) => {
   const [toggleDrop, setToggleDrop] = useState<DropdownState>({});
+  const [active, setActive] = useState<DropdownState>();
   const [open, setOpen] = useState(true);
   const router = useRouter();
 
   const handleClick = () => {
     setOpen(!open);
   };
+
   const handleDropDown = (id: number) => {
-    setToggleDrop([]);
+    setToggleDrop({})
     setToggleDrop((prevState) => ({ ...prevState, [id]: !prevState[id] }));
   };
 
@@ -96,8 +101,7 @@ const MainListItems: React.FC<IMainListItems> = ({
                     sx={{
                       overflow: "hidden",
                       textOverflow: "ellipsis",
-                      whiteSpace: "wrap",
-                      maxWidth: "300px",
+                      maxWidth: "200px",
                     }}
                   />
                 </Tooltip>
@@ -108,16 +112,17 @@ const MainListItems: React.FC<IMainListItems> = ({
                 timeout={500}
                 unmountOnExit
               >
-                {categories.map((category) => (
+                {categories?.map((category) => (
                   <List
                     key={category.category_id}
                     onClick={() => {
                       getLawByCategoryId && getLawByCategoryId(category);
                     }}
                     component="div"
+                    sx={{ pl: 4 }}
                     disablePadding
                   >
-                    <ListItemButton sx={{ pl: 4, boxShadow: 1 }}>
+                    <ListItemButton>
                       <Tooltip title={category.category_title} arrow>
                         <ListItemText
                           primary={category.category_title}
@@ -125,7 +130,7 @@ const MainListItems: React.FC<IMainListItems> = ({
                             overflow: "hidden",
                             textOverflow: "ellipsis",
                             whiteSpace: "wrap",
-                            maxWidth: "300px", 
+                            maxWidth: "300px",
                           }}
                         />
                       </Tooltip>

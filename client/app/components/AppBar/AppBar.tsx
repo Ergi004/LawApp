@@ -140,7 +140,6 @@ const AppBar: React.FC<IMyAppBarProps> = ({
           >
             Welcome {loggedUser?.user_name}
           </Typography>
-          <SearchBar myLaws={myLaws} setMyLaws={setMyLaws} />
           <LogoutModal />
         </Toolbar>
       </MyAppBar>

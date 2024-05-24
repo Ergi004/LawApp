@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { ILoggedUser } from "@/app/models/userModel";
 import MuiDrawer from "@mui/material/Drawer";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import { HandlePartClick, IMyAppBarProps } from "@/app/models/functions";
+import {  IMyAppBarProps } from "@/app/models/functions";
 import { styled } from "@mui/material/styles";
 import { useState } from "react";
 import {
@@ -18,15 +18,10 @@ import {
   List,
 } from "@mui/material";
 import AdminListItems from "../AdminListItems/AdminListItems";
-import SearchBar from "../SearchBar/SearchBar";
-import { IAllCategories, ICreateCategory } from "@/app/models/categoryModel";
-import { IGetAllLaws } from "@/app/models/lawModel";
-import { IAllParts, Part } from "@/app/models/partModel";
-import LawApi from "../../api/lawApi";
-import CategoryApi from "../../api/categoryApi";
+import { IAllParts } from "@/app/models/partModel";
 import Api from "@/app/api/partApi";
-
-const drawerWidth: number = 350;
+import styles from './adminAppBar.module.css'
+const drawerWidth: number = 250;
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
 }
@@ -35,7 +30,7 @@ const AppDrawer = styled(MuiDrawer, {
   shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }) => ({
   "& .MuiDrawer-paper": {
-    position: "relative",
+    position: "absolute",
     whiteSpace: "nowrap",
     width: drawerWidth,
     transition: theme.transitions.create("width", {
@@ -78,23 +73,18 @@ const MyAppBar = styled(MuiAppBar, {
 const AdminAppBar: React.FC<IMyAppBarProps> = ({
   getLawByCategoryId,
   getAllLaws,
+  categories,
+  handlePartClick
 }) => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const [loggedUser, setLoggedUser] = useState<ILoggedUser>();
-  const [categories, setCategories] = useState<IAllCategories[]>([]);
   const [parts, setParts] = useState<IAllParts[]>([]);
 
   const getAllParts = async () => {
     const response = await Api.getAllParts(parts);
     setParts(response);
   };
-  const handlePartClick: HandlePartClick = async (part: Part) => {
-    const response = await CategoryApi.getCategoryByPartId(
-      part.part_id as number
-    );
-    setCategories(response.data.data);
-  };
-
+  
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -134,10 +124,10 @@ const AdminAppBar: React.FC<IMyAppBarProps> = ({
             color="inherit"
             noWrap
             sx={{ flexGrow: 1 }}
+            className={styles.welcomeTxt}
           >
             Welcome {loggedUser?.user_name}
           </Typography>
-          
           <LogoutModal />
         </Toolbar>
       </MyAppBar>

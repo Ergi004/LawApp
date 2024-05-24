@@ -5,6 +5,4 @@ import { AppService } from './app.service';
 export class AppController {
   [x: string]: any;
   constructor(private readonly appService: AppService) {}
-
-  
 }

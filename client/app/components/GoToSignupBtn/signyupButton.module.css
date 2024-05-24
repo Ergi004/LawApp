@@ -1,0 +1,23 @@
+.loginButton {
+  margin: 5px;
+  background-color: #f9f6f6; /* Match your site's color */
+  color: black;
+  font-size: 13px;
+  padding: 3px 15px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.loginButton:hover {
+  background-color: #cecece;
+}
+
+@media (max-width: 650px) {
+  .loginButton {
+    margin: 5px;
+    font-size: 11px;
+    padding: 2px 13px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+}

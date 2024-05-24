@@ -4,11 +4,11 @@ import { useEffect } from "react";
 
 const AuthGuard = ({ children }: any) => {
   const router = useRouter();
-  useEffect(() => {
-    if (!window.localStorage.getItem("token")) {
-      router.push("/");
-    }
-  }, [router]);
+  // useEffect(() => {
+  //   if (!window.localStorage.getItem("token")) {
+  //     router.push("/");
+  //   }
+  // }, [router]);
   return <>{children}</>;
 };
 

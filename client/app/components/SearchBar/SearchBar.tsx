@@ -3,6 +3,7 @@ import TextField from "@mui/material/TextField";
 import { InputBase, alpha, styled } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { ICreateLaw, IGetAllLaws } from "@/app/models/lawModel";
+import styles from './searchbar.module.css'
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "inherit",
@@ -25,9 +26,10 @@ const Search = styled("div")(({ theme }) => ({
     backgroundColor: alpha(theme.palette.common.white, 0.25),
   },
   width: "100%",
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(3),
-    width: "auto",
+  [theme.breakpoints.down("sm")]: {
+    marginLeft: theme.spacing(8),
+    width: "200px",
+    height: '40px'
   },
 }));
 
@@ -70,8 +72,8 @@ const SearchBar: React.FC<ISearchBarProps> = ({ myLaws, setLaws }) => {
       sx={{
         border: "1px #DDDDDD solid",
         backgroundColor: "white",
-        margin: "30px",
         maxWidth: "400px",
+        boxShadow: 5
       }}
     >
       <SearchIconWrapper>
@@ -81,6 +83,7 @@ const SearchBar: React.FC<ISearchBarProps> = ({ myLaws, setLaws }) => {
         placeholder="Search…"
         inputProps={{ "aria-label": "search" }}
         sx={{height: '60px'}}
+        className={styles.searchText}
         value={name.value}
         onChange={handleSearch}
       />

@@ -1,18 +1,16 @@
 import Footer from "./components/Footer/Footer";
 import Navbar from "./components/Navbar/Navbar";
 import Homepage from "./homepage/page";
-import { Box } from "@mui/material";
-
+import "./globals.css"
 const Home = () => {
   return (
     <div>
-      <Box sx={{ margin: 0 }}>
-        <Navbar />
-        <main>
-          <Homepage />
-          <Footer />
-        </main>
-      </Box>
+     
+      <Navbar />
+      <main>
+        <Homepage />
+        <Footer />
+      </main>
     </div>
   );
 };

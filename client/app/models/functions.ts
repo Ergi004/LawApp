@@ -16,7 +16,7 @@ export interface GetLawByCategoryId {
 export interface IMainListItems {
   parts: IAllParts[];
   handlePartClick?: HandlePartClick;
-  categories: IAllCategories[];
+  categories?: IAllCategories[];
   getLawByCategoryId?: GetLawByCategoryId;
   getAllLaws: IGetAllLawsProp;
 }
@@ -24,7 +24,7 @@ export interface IMyAppBarProps {
   handlePartClick?: HandlePartClick;
   categories?: IAllCategories[];
   getLawByCategoryId?: GetLawByCategoryId;
-  getAllLaws: IGetAllLawsProp | any;
+  getAllLaws?: IGetAllLawsProp | any;
 }
 export interface DropdownState {
   [key: number]: boolean;

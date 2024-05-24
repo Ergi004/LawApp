@@ -1,10 +1,8 @@
 "use client";
 import * as React from "react";
-import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
-import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
 import List from "@mui/material/List";
@@ -13,87 +11,36 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import InputBase from "@mui/material/InputBase";
-import SearchIcon from "@mui/icons-material/Search";
 import { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import styles from "./navbar.module.css";
+import LoginButton from "../GoToLoginBtn/LoginButton";
 
-const drawerWidth = 240;
-const navItems = ["Home", "About", "Contact"];
-
-const Search = styled("div")(({ theme }) => ({
-  position: "relative",
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: "100%",
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(3),
-    width: "auto",
-  },
-}));
-
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: "100%",
-  position: "absolute",
-  pointerEvents: "none",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
-  "& .MuiInputBase-input": {
-    padding: theme.spacing(1, 1, 1, 0),
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("md")]: {
-      width: "20ch",
-    },
-  },
-}));
+const drawerWidth = 140;
+const navItems = ["Features", "Contact Us"];
 
 export default function Navbar(props: any) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
-  const router = useRouter();
-  const goToLogin = () => {
-    router.push("/login");
-  };
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
-      <Typography variant="h6" sx={{ my: 2 }}>
-        MUI
-      </Typography>
-
-      <Divider />
-      <List>
-        <ListItem>
-          <ListItemButton
-            onClick={() => goToLogin()}
-            sx={{ textAlign: "center" }}
-          >
-            <ListItemText primary="Login" />
-          </ListItemButton>
-        </ListItem>
+      <Box sx={{width: '100%', borderBottom: '1px #222831 solid'}}>
+        <img src="/law-logo.png" className={styles.navLogo} alt="Logo" />
+      </Box>
+      <List sx={{ margin: "0" }}>
+        <LoginButton />
         {navItems.map((item) => (
           <ListItem key={item} disablePadding>
             <ListItemButton sx={{ textAlign: "center" }}>
-              <ListItemText primary={item} />
+              <ListItemText
+                primary={item}
+                classes={{ primary: styles.navDrawerButton }}
+              />
             </ListItemButton>
           </ListItem>
         ))}
@@ -107,44 +54,30 @@ export default function Navbar(props: any) {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar sx={{ bgcolor: "beige", color: "black" }} component="nav">
-        <Toolbar>
+      <AppBar className={styles.appBar}>
+        <Toolbar sx={{ margin: "auto 40px" }}>
           <IconButton
             color="inherit"
             aria-label="open drawer"
-            edge="start"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: "none" } }}
+            className={styles.menuBtn}
           >
-            <MenuIcon />
+            <MenuIcon className={styles.menuIcon} />
           </IconButton>
-          <Typography
-            variant="h6"
+          <Box
             component="div"
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
           >
-            MUI
-          </Typography>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ "aria-label": "search" }}
-            />
-          </Search>
-
-          <Box sx={{ display: { xs: "none", sm: "block" } }}>
+            <img src="/law-logo.png" className={styles.navLogo} alt="Logo" />
+          </Box>
+          <Box className={styles.loginBtnContainer}>
             {navItems.map((item) => (
-              <Button key={item} sx={{ color: "black" }}>
+              <Button key={item} className={styles.navButton}>
                 {item}
               </Button>
             ))}
             <Link href="/login">
-              <Button sx={{ margin: "10px" }} variant="contained">
-                Login
-              </Button>
+              <LoginButton />
             </Link>
           </Box>
         </Toolbar>

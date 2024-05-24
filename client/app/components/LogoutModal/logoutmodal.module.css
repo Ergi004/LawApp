@@ -1,0 +1,9 @@
+@media (max-width: 650px) {
+  .logoutBtn {
+    width: 10px !important;
+    padding: 1px;
+  }
+  .logoutImg {
+    width: 20px;
+  }
+}

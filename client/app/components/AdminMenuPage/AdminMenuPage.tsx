@@ -15,7 +15,7 @@ const AdminMenu: React.FC = () => {
   return (
       <Box sx={{ display: "flex", width: '100%' }}>
         <CssBaseline />
-        <AdminAppBar />
+        <AdminAppBar getAllLaws={undefined} />
         <Box
           component="main"
           sx={{

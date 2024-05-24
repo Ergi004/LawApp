@@ -33,12 +33,7 @@ const Dashboard: React.FC = () => {
   return (
     <Box sx={{ display: "flex", width: "100%" }}>
       <CssBaseline />
-      <AppBar
-        getLawByCategoryId={getLawByCategoryId}
-        getAllLaws={getAllLaws}
-        myLaws={myLaws}
-        setMyLaws={setLaws}
-      />
+      <AppBar getLawByCategoryId={getLawByCategoryId} getAllLaws={getAllLaws} />
       <Box
         component="main"
         sx={{
@@ -53,7 +48,7 @@ const Dashboard: React.FC = () => {
       >
         <Toolbar />
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-          <AllLaws laws={laws} />
+          <AllLaws laws={laws} myLaws={myLaws} setLaws={setLaws} />
         </Container>
       </Box>
     </Box>

@@ -10,7 +10,6 @@ const Homepage: React.FC = () => {
     <Box>
       <Hero />
       <FeatureSection/>
-      <ContentSection/>
     </Box>
   );
 };
