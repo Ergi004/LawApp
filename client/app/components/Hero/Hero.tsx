@@ -12,9 +12,10 @@ const Hero: React.FC = () => {
           sx={{
             fontFamily: "'Krona One', sans-serif",
             fontSize: { xs: "24px", sm: "48px" },
+            margin: '20px'
           }}
         >
-          It's all coming together
+          Ligji në Dorën Tënde
         </Typography>
         <Typography
           variant="h6"
@@ -25,8 +26,7 @@ const Hero: React.FC = () => {
           }}
           gutterBottom
         >
-          When you’re on top of your money, life is good. We help you
-          effortlessly manage your finances in one place.
+          Në Ligjëratë të Drejtësisë, Ne Krijojmë Rrjedhën e Diturisë
         </Typography>
       </Box>
     </Box>

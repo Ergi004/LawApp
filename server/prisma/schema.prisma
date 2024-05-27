@@ -10,7 +10,7 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  url      = "mysql://Admin:AAAA@localhost:3306/LawApp"
+  url      = "mysql://uzbawwiq347ye0av:l4Gp4BOf3qCyg1k2AbkX@bgvt4ya0xxm0sm5qel8w-mysql.services.clever-cloud.com:3306/bgvt4ya0xxm0sm5qel8w"
 }
 
 

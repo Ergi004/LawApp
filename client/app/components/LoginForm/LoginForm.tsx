@@ -29,7 +29,6 @@ const LoginForm: React.FC = () => {
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      console.log(loginUser)
       const response = await Api.login(loginUser as ILoginUser);
       const token = response.token
       const user = JSON.stringify(response.user)

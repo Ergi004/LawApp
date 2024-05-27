@@ -11,7 +11,7 @@ const Footer = () => {
         component="h3"
         gutterBottom
       >
-        Contact Us
+        Kontakto
       </Typography>
       <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
         <Box

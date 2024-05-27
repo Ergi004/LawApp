@@ -21,9 +21,7 @@ const Api = {
   },
   login: async (loginUser: ILoginUser) => {
     try {
-      console.log(loginUser)
       const response = await Axios.post<ILoginUser>("/users/login", loginUser);
-      console.log(response.data)
       return response.data;
     } catch (error) {
       throw error

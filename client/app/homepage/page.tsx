@@ -1,15 +1,15 @@
 import React from "react";
 import { Box } from "@mui/material";
-import Hero from '../components/Hero/Hero'
+import Hero from "../components/Hero/Hero";
 import FeatureSection from "../components/FearureSection/FeatureSection";
 import ContentSection from "../components/ContentSection/ContentSection";
-
 
 const Homepage: React.FC = () => {
   return (
     <Box>
       <Hero />
-      <FeatureSection/>
+      <FeatureSection />
+      <ContentSection />
     </Box>
   );
 };

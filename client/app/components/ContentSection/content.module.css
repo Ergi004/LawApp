@@ -1,11 +1,88 @@
 .additionalContent {
-  background-color: #e1f7f5;
+  background-color: #f1f1f1;
   text-align: center;
-  padding: 20px;
+  padding: 10px;
+}
+.textContainer {
+  margin: 50px;
+}
+
+.text {
+  font-size: 20px;
+}
+
+.imgContainer {
+  height: 250px;
+  margin: 70px 40px;
+  border-right: 1px solid #222831;
+}
+
+.imgContainerSecond {
+  height: 250px;
+  margin: 70px 40px;
+  border-left: 1px solid #222831;
+}
+.img {
+  width: 150px;
+  margin: 50px 70px;
+}
+.firstImg {
+  width: 300px;
+  margin: 30px 50px;
+  border-radius: 5px;
+}
+
+.subContainer {
+  display: flex;
+  flex-direction: row;
+  max-width: 1000px;
+  margin: 10px auto;
 }
 
 .contentTitles {
   font-family: "Krona One", sans-serif;
   margin: 20px;
   padding: 20px;
+}
+
+@media (max-width: 650px) {
+  .subContainer {
+    display: flex;
+    margin: 10px;
+    max-width: 300px;
+  }
+
+  .img {
+    width: 60px;
+    margin: 20px 30px;
+  }
+
+  .firstImg {
+    width: 100px;
+    margin: 20px 20px 0 0;
+  }
+  .imgContainer {
+    height: 130px;
+    margin: 30px 20px;
+  }
+
+  .imgContainerSecond {
+    height: 130px;
+    margin: 30px 0px 0 20px;
+  }
+
+  .text {
+    font-size: 10px;
+    margin: 5px;
+  }
+
+  .textContainer {
+    margin: 0px;
+    width: 150px;
+  }
+  .contentTitles {
+    font-size: 15px;
+    margin: 0;
+    padding: 10px;
+  }
 }

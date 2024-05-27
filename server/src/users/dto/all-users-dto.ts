@@ -1,7 +1,7 @@
 import { IsString, IsEmail } from 'class-validator';
 
 export class AllUsers {
-  id?: number
+  id: number
   @IsString()
   user_name: string;
 

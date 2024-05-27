@@ -57,7 +57,6 @@ const SearchBar: React.FC<ISearchBarProps> = ({ myLaws, setLaws }) => {
   const [name, setName] = useState<IName>({ name: "" });
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(myLaws);
     const value = e.target.value;
     const result = myLaws.filter((law: ICreateLaw) => {
       return (

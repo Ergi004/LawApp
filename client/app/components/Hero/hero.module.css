@@ -6,12 +6,12 @@
   height: 100%;
   object-fit: cover;
   z-index: 0;
-  opacity: 0.5; /* Adjust the opacity if needed */
+  opacity: 0.24; /* Adjust the opacity if needed */
 }
 
 .hero {
   background-color: #f1f1f1;
-  height: 93vh; /* Adjusted to use full viewport height */
+  height: 100vh; /* Adjusted to use full viewport height */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -33,12 +33,12 @@
 
   .hero {
     margin-top: 45px;
-    height: 550px; /* Adjust height for smaller screens */
-    padding: 20px 0; /* Add padding for better spacing */
+    height: 600px; /* Adjust height for smaller screens */
+    padding: 10px; /* Add padding for better spacing */
   }
 
   .img {
-    opacity: 0.3; /* Increase transparency for better text visibility */
+    opacity: 0.2; /* Increase transparency for better text visibility */
   }
 
   .text-container h1 {
