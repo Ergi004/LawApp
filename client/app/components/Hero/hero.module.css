@@ -6,46 +6,46 @@
   height: 100%;
   object-fit: cover;
   z-index: 0;
-  opacity: 0.24; /* Adjust the opacity if needed */
+  opacity: 0.4; 
 }
 
 .hero {
-  background-color: #f1f1f1;
-  height: 100vh; /* Adjusted to use full viewport height */
+  background-color: #ededf3;
+  height: 100vh; 
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
   position: relative;
-  overflow: hidden; /* Ensure content doesn't overflow */
+  overflow: hidden; 
 }
 
 .text-container {
   position: relative;
   z-index: 1;
-  padding: 20px; /* Add padding for better spacing on mobile */
+  padding: 20px; 
 }
 
 @media (max-width: 650px) {
   .text-container {
-    padding: 10px; /* Adjust padding for smaller screens */
+    padding: 10px; 
   }
 
   .hero {
     margin-top: 45px;
-    height: 600px; /* Adjust height for smaller screens */
-    padding: 10px; /* Add padding for better spacing */
+    height: 600px; 
+    padding: 10px; 
   }
 
   .img {
-    opacity: 0.2; /* Increase transparency for better text visibility */
+    opacity: 0.2;
   }
 
   .text-container h1 {
-    font-size: 24px; /* Adjust font size for smaller screens */
+    font-size: 24px; 
   }
 
   .text-container p {
-    font-size: 14px; /* Adjust font size for smaller screens */
+    font-size: 14px; 
   }
 }

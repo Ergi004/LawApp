@@ -23,10 +23,6 @@ const EditLawsForm = () => {
     setLaws(resposne.data);
   };
 
-  const getLawByCategoryId = async (category: ICreateCategory) => {
-    const response = await LawApi.getLawByCategoryId(category.category_id);
-    setLaws(response.data);
-  };
   const handlePartClick: HandlePartClick = async (
     part: Part | ICreateCategory
   ) => {

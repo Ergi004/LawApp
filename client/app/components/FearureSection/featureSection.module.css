@@ -21,11 +21,11 @@
   margin-top: 25px;
   font-family: "Krona One", sans-serif;
   color: #f1f1f1;
-  font-size: 17px; /* Adjust font size */
+  font-size: 17px; 
 }
 
 .featuresText {
-  font-size: 11px; /* Adjust font size */
+  font-size: 11px;
   font-family: "Krona One", sans-serif;
   color: #a3a0a0;
 }
@@ -37,11 +37,11 @@
 
   .featuresTitles {
     margin-top: 15px;
-    font-size: 14px; /* Adjust font size for smaller screens */
+    font-size: 14px; 
   }
 
   .featuresText {
-    font-size: 8px; /* Adjust font size for smaller screens */
+    font-size: 8px;
   }
   .header {
     margin: 10px 0 0 0;
