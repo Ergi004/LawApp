@@ -1,8 +1,9 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { LawCategory } from '../../lawCategory/entities/category.entity';
 
 @Entity({ name: 'Users' })
 export class User {
-  @PrimaryGeneratedColumn({type: 'bigint'})
+  @PrimaryGeneratedColumn({ type: 'bigint' })
   id: number;
 
   @Column()
@@ -13,9 +14,10 @@ export class User {
 
   @Column()
   email: string;
-  
+
   @Column()
   password: string;
-  @Column({default: 'SimpleUser'})
-  role?: string
+  @Column({ default: 'SimpleUser' })
+  role?: string;
+  
 }

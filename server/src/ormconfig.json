@@ -1,0 +1,24 @@
+{
+  "type": "mysql",
+  "host": "localhost",
+  "port": 3306,
+  "username": "Admin",
+  "password": "1234",
+  "database": "LawApp",
+  "entities": [
+    "src/lawCategory/entities/*.ts",
+    "src/laws/entities/*.ts",
+    "src/parts/entities/*.ts",
+    "src/users/entities/*.ts",
+    "src/civilcode-category/entities/*.ts",
+    "src/civilcode-law/entities/*.ts",
+    "src/civilcode-part/entities/*.ts",
+    "src/civilcode-title/entities/*.ts"
+  ],
+  "migrations": [
+    "src/migrations/*.ts"
+  ],
+  "synchronize": true,
+  "seeds": ["src/database/seeds/**/*{.ts,.js}"],
+  "factories": ["src/database/factories/**/*{.ts,.js}"]
+}

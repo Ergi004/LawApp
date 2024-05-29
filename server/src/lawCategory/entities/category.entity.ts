@@ -1,6 +1,7 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Law } from '../../laws/entities/law.entity';
 
-@Entity({name: 'LawCategory'})
+@Entity({ name: 'LawCategory' })
 export class LawCategory {
   @PrimaryGeneratedColumn()
   category_id: number;
@@ -10,4 +11,6 @@ export class LawCategory {
   category_number: string;
   @Column()
   part_id: number;
+  @OneToMany((type) => Law, (law) => law.category_id)
+  law: Law[];
 }

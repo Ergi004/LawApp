@@ -25,11 +25,11 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post('register')
-  register(@Body() createUserDto: CreateUserDto) {
+  async register(@Body() createUserDto: CreateUserDto) {
     try {
       if (createUserDto.email) {
       }
-      const createdUser = this.usersService.register(createUserDto);
+      const createdUser = await this.usersService.register(createUserDto);
       return createdUser;
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
