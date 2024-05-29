@@ -1,5 +1,5 @@
 .footer {
-  background-color: #dddddd;
+  background: linear-gradient(to bottom, #e9e9e9, #e5e5f1);
   padding: 20px;
   text-align: center;
   margin: 0 auto;
@@ -13,7 +13,7 @@
 
 .info {
   padding: 10px;
-  font-size: 14px; 
+  font-size: 14px;
 }
 
 @media (max-width: 650px) {

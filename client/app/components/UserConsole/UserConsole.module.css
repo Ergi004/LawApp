@@ -1,0 +1,31 @@
+.paper {
+  margin: 100px auto;
+  max-width: 1300px;
+  min-height: 500px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+.header {
+  margin: 0px 0 20px 0;
+  font-weight: bold;
+}
+.headerContainer {
+  margin: 50px;
+  max-width: 1200px;
+  border-bottom: 1px black solid;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 auto;
+}
+
+.box {
+  margin: 30px;
+  padding: 20px;
+  min-height: 70px;
+  min-width: 300px;
+  border-radius: 3px;
+}

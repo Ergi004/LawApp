@@ -5,10 +5,7 @@ import { useEffect } from "react";
 import { ILoggedUser } from "@/app/models/userModel";
 import MuiDrawer from "@mui/material/Drawer";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import {
-  HandlePartClick,
-  IMyAppBarProps,
-} from "@/app/models/functions";
+import { HandlePartClick, IMyAppBarProps } from "@/app/models/functions";
 import { styled } from "@mui/material/styles";
 import { useState } from "react";
 import {
@@ -28,7 +25,8 @@ import LawApi from "../../api/lawApi";
 import CategoryApi from "../../api/categoryApi";
 import { IGetAllLaws } from "@/app/models/lawModel";
 
-const drawerWidth: number = 350;
+const drawerWidth: number = 220;
+const responsiveDrawer: number = 300;
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
 }
@@ -37,13 +35,16 @@ const AppDrawer = styled(MuiDrawer, {
   shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }) => ({
   "& .MuiDrawer-paper": {
-    position: "relative",
+    position: "absolute",
     whiteSpace: "nowrap",
     width: drawerWidth,
     transition: theme.transitions.create("width", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
+    [theme.breakpoints.up("sm")]: {
+      width: responsiveDrawer,
+    },
     boxSizing: "border-box",
     ...(!open && {
       overflowX: "hidden",
@@ -51,9 +52,9 @@ const AppDrawer = styled(MuiDrawer, {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
       }),
-      width: theme.spacing(7),
+      width: theme.spacing(6.8),
       [theme.breakpoints.up("sm")]: {
-        width: theme.spacing(9),
+        width: theme.spacing(7),
       },
     }),
   },
@@ -68,8 +69,11 @@ const MyAppBar = styled(MuiAppBar, {
     duration: theme.transitions.duration.leavingScreen,
   }),
   ...(open && {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
+    marginLeft: responsiveDrawer,
+    width: `calc(100% - ${responsiveDrawer}px)`,
+    [theme.breakpoints.down("sm")]: {
+      width: `calc(100% - ${drawerWidth}px)`,
+    },
     transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
@@ -85,7 +89,6 @@ const AppBar: React.FC<IMyAppBarProps> = ({
   const [parts, setParts] = useState<IAllParts[]>([]);
   const [loggedUser, setLoggedUser] = useState<ILoggedUser>();
   const [categories, setCategories] = useState<IAllCategories[]>([]);
-  const [myLaws, setMyLaws] = useState<IGetAllLaws[]>([]);
 
   const getAllParts = async () => {
     const response = await PartApi.getAllParts(parts);

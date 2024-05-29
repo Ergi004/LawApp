@@ -3,13 +3,15 @@ import React from "react";
 import { AllLawsProps, Law } from "@/app/models/lawModel";
 import SearchBar from "../SearchBar/SearchBar";
 import ImageListItem from "@mui/material/ImageListItem";
-import styles from "./allLaws.module.css"; // Import the CSS module
+import styles from "./allLaws.module.css";
+import Pagination from "@mui/material/Pagination";
+import Stack from "@mui/material/Stack";
 
 const AllLaws: React.FC<AllLawsProps> = ({ laws, myLaws, setLaws }) => {
   return (
     <Grid container spacing={3}>
-      <Grid sx={{padding: '10px 0px 0 30px'}} xs={12} md={12} lg={13}>
-        <Box sx={{ alignItems: "center", }}>
+      <Grid sx={{ padding: "10px 0px 0 30px" }} xs={12} md={12} lg={13}>
+        <Box sx={{ alignItems: "center" }}>
           <SearchBar myLaws={myLaws} setLaws={setLaws} />
         </Box>
         <Paper
@@ -17,8 +19,7 @@ const AllLaws: React.FC<AllLawsProps> = ({ laws, myLaws, setLaws }) => {
             p: 2,
             display: "flex",
             flexDirection: "column",
-            minHeight: 240,
-            boxShadow: 10,
+            boxShadow: 20,
           }}
           className={styles.paper}
         >

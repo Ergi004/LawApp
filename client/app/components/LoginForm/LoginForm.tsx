@@ -39,7 +39,7 @@ const LoginForm: React.FC = () => {
       if (role === "Admin"){
         router.push('/adminAccount')
       } else {
-        router.push('/account')
+        router.push('/console')
       }
       
       return response

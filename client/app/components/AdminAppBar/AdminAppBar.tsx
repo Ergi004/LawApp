@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { ILoggedUser } from "@/app/models/userModel";
 import MuiDrawer from "@mui/material/Drawer";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import {  IMyAppBarProps } from "@/app/models/functions";
+import { IMyAppBarProps } from "@/app/models/functions";
 import { styled } from "@mui/material/styles";
 import { useState } from "react";
 import {
@@ -20,8 +20,8 @@ import {
 import AdminListItems from "../AdminListItems/AdminListItems";
 import { IAllParts } from "@/app/models/partModel";
 import Api from "@/app/api/partApi";
-import styles from './adminAppBar.module.css'
-const drawerWidth: number = 250;
+import styles from "./adminAppBar.module.css";
+const drawerWidth: number = 400;
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
 }
@@ -55,6 +55,7 @@ const AppDrawer = styled(MuiDrawer, {
 const MyAppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
 })<AppBarProps>(({ theme, open }) => ({
+  backgroundColor: '#344C64',
   zIndex: theme.zIndex.drawer + 1,
   transition: theme.transitions.create(["width", "margin"], {
     easing: theme.transitions.easing.sharp,
@@ -74,7 +75,7 @@ const AdminAppBar: React.FC<IMyAppBarProps> = ({
   getLawByCategoryId,
   getAllLaws,
   categories,
-  handlePartClick
+  handlePartClick,
 }) => {
   const [open, setOpen] = useState(false);
   const [loggedUser, setLoggedUser] = useState<ILoggedUser>();
@@ -84,7 +85,7 @@ const AdminAppBar: React.FC<IMyAppBarProps> = ({
     const response = await Api.getAllParts(parts);
     setParts(response);
   };
-  
+
   const toggleDrawer = () => {
     setOpen(!open);
   };

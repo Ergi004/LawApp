@@ -5,11 +5,11 @@ import SimpleUserPage from '../components/SimpleUserPage/SimpleUserPage'
 
 const Dashboard: React.FC = () => {
   return (
-    <AuthGuard>
+    // <AuthGuard>
       <Box sx={{ display: "flex" }}>
         <SimpleUserPage/>
       </Box>
-    </AuthGuard>
+    // </AuthGuard>
   );
 };
 

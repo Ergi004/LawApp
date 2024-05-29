@@ -24,6 +24,7 @@ const MainListItems: React.FC<IMainListItems> = ({
   handlePartClick,
   categories,
   getLawByCategoryId,
+  getAllLaws
 }) => {
   const [toggleDrop, setToggleDrop] = useState<DropdownState>({});
   const [active, setActive] = useState<DropdownState>();
@@ -41,6 +42,7 @@ const MainListItems: React.FC<IMainListItems> = ({
 
   const gotToAdminDashboard = () => {
     router.push("/adminAccount");
+    getAllLaws();
   };
   const gotToEditLaws = () => {
     router.push("/editLaws");
@@ -95,16 +97,18 @@ const MainListItems: React.FC<IMainListItems> = ({
                 <ListItemIcon>
                   <AssignmentIcon />
                 </ListItemIcon>
-                <Tooltip title={part.part_title} arrow>
+                <Tooltip title={part.part_number} arrow>
                   <ListItemText
                     primary={part.part_title}
                     sx={{
                       overflow: "hidden",
+                      // whiteSpace: 'wrap',
                       textOverflow: "ellipsis",
-                      maxWidth: "200px",
+                      maxWidth: "350px",
                     }}
                   />
                 </Tooltip>
+                <Typography sx={{fontSize: '17px', fontWeight: 'bold'}}>{part.part_id}</Typography>
                 {toggleDrop[part.part_id] ? <ExpandLess /> : <ExpandMore />}
               </ListItemButton>
               <Collapse
@@ -123,7 +127,7 @@ const MainListItems: React.FC<IMainListItems> = ({
                     disablePadding
                   >
                     <ListItemButton>
-                      <Tooltip title={category.category_title} arrow>
+                      <Tooltip title={category.category_number} arrow>
                         <ListItemText
                           primary={category.category_title}
                           sx={{
@@ -134,6 +138,8 @@ const MainListItems: React.FC<IMainListItems> = ({
                           }}
                         />
                       </Tooltip>
+                      <Typography sx={{fontSize: '17px', fontWeight: 'bold'}}>{category.category_id}</Typography>
+
                     </ListItemButton>
                   </List>
                 ))}

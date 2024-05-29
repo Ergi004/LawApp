@@ -5,6 +5,8 @@
 }
 .textContainer {
   margin: 50px;
+  border-bottom: #222831 solid 1px;
+  margin-bottom: 10px;
 }
 
 .text {
@@ -35,7 +37,7 @@
 .subContainer {
   display: flex;
   flex-direction: row;
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 10px auto;
 }
 

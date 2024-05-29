@@ -1,5 +1,3 @@
-/* allLaws.module.css */
-
 .container {
   display: flex;
   flex-direction: column;
@@ -11,6 +9,9 @@
   width: 70px;
   height: 30px;
   margin: 10px auto;
+}
+.paper {
+  background-color: #ffffff;
 }
 
 .header {
@@ -60,7 +61,6 @@
   text-align: center;
 }
 
-/* Responsive Styles */
 @media (max-width: 650px) {
   .paper {
     margin-left: 50px;

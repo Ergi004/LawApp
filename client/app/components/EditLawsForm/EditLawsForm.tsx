@@ -73,6 +73,7 @@ const EditLawsForm = () => {
             minHeight: 240,
             boxShadow: 10,
             backgroundColor: "white",
+            marginLeft: '150px'
           }}
         >
           <Card sx={{ margin: "20px" }}>
